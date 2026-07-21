@@ -13,7 +13,7 @@ public:
     WavetablePad()
     {
         buildFrames();
-        startTimerHz (28);
+        startTimerHz (24);
     }
 
     void setLookAndFeelRef (ScorionLookAndFeel* laf) { laf_ = laf; }
@@ -88,7 +88,7 @@ public:
 private:
     void timerCallback() override
     {
-        phase_ += 0.02f + energy_ * 0.045f;
+        phase_ += 0.012f + energy_ * 0.02f;
         if (phase_ > juce::MathConstants<float>::twoPi)
             phase_ -= juce::MathConstants<float>::twoPi;
         repaint();

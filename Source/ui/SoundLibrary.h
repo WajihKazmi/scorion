@@ -10,22 +10,17 @@
 #include <cmath>
 #include <algorithm>
 
-/** Sound library with clearer typography, sort, and denser card UX. */
+/** Sound library — wrap categories, clearer cards, less chrome congestion. */
 class SoundLibrary : public juce::Component,
                      private juce::Timer
 {
 public:
     explicit SoundLibrary (PresetManager& pm) : presets_ (pm)
     {
-        search.setTextToShowWhenEmpty ("Search… dark horror choir", juce::Colours::grey);
+        search.setTextToShowWhenEmpty ("Search library…", juce::Colours::grey);
         search.setFont (juce::FontOptions (14.0f));
         search.onTextChange = [this] { rebuild(); };
         addAndMakeVisible (search);
-
-        favOnly.setButtonText ("♥ Fav");
-        favOnly.setClickingTogglesState (true);
-        favOnly.onClick = [this] { rebuild(); };
-        addAndMakeVisible (favOnly);
 
         sortBox.addItemList ({ "Name", "Category", "Energy ↓", "Mood" }, 1);
         sortBox.setSelectedId (1, juce::dontSendNotification);
@@ -37,26 +32,22 @@ public:
             auto* b = chips.add (new juce::TextButton (c));
             b->setClickingTogglesState (true);
             b->setRadioGroupId (9101);
+            b->setConnectedEdges (juce::Button::ConnectedOnLeft | juce::Button::ConnectedOnRight);
             b->onClick = [this, c] {
                 activeCollection_ = c;
                 rebuild();
             };
-            addAndMakeVisible (b);
+            chipWrap.addAndMakeVisible (b);
         }
         if (chips.size() > 0)
             chips[0]->setToggleState (true, juce::dontSendNotification);
-
-        chipViewport.setViewedComponent (&chipRow, false);
-        chipViewport.setScrollBarsShown (false, true);
-        addAndMakeVisible (chipViewport);
-        for (auto* b : chips)
-            chipRow.addAndMakeVisible (b);
+        addAndMakeVisible (chipWrap);
 
         viewport.setViewedComponent (&grid, false);
         viewport.setScrollBarsShown (true, false);
         addAndMakeVisible (viewport);
 
-        hint.setText ("Click card to load + audition  ·  Heart to favorite", juce::dontSendNotification);
+        hint.setText ("Click to load + audition  ·  ♥ favorite", juce::dontSendNotification);
         hint.setJustificationType (juce::Justification::centredLeft);
         addAndMakeVisible (hint);
 
@@ -73,12 +64,19 @@ public:
             search.setColour (juce::TextEditor::backgroundColourId, laf->card());
             search.setColour (juce::TextEditor::textColourId, laf->textPrimary());
             search.setColour (juce::TextEditor::outlineColourId, juce::Colours::transparentBlack);
-            search.setTextToShowWhenEmpty ("Search… dark horror choir", laf->textSecondary());
-            hint.setFont (laf->uiFont (12.0f));
+            search.setTextToShowWhenEmpty ("Search library…", laf->textSecondary());
+            hint.setFont (laf->uiFont (11.5f));
             hint.setColour (juce::Label::textColourId, laf->textSecondary());
             sortBox.setColour (juce::ComboBox::textColourId, laf->textPrimary());
+            for (auto* b : chips)
+            {
+                b->setColour (juce::TextButton::textColourOffId, laf->textPrimary());
+                b->setColour (juce::TextButton::textColourOnId, laf->isLightTheme()
+                               ? juce::Colours::white : juce::Colours::black);
+            }
         }
         repaint();
+        resized();
     }
 
     void setExternalQuery (const juce::String& q)
@@ -101,103 +99,167 @@ public:
     void paint (juce::Graphics& g) override
     {
         g.setColour (laf_ != nullptr ? laf_->textPrimary() : juce::Colours::white);
-        g.setFont (laf_ != nullptr ? laf_->titleFont (15.0f) : juce::FontOptions (15.0f));
-        g.drawText ("SOUND LIBRARY", 8, 4, 180, 18, juce::Justification::centredLeft);
+        g.setFont (laf_ != nullptr ? laf_->titleFont (14.0f) : juce::FontOptions (14.0f));
+        g.drawText ("SOUND LIBRARY", 8, 2, 160, 16, juce::Justification::centredLeft);
         g.setColour (laf_ != nullptr ? laf_->mint() : juce::Colours::cyan);
-        g.setFont (laf_ != nullptr ? laf_->uiFont (13.0f, true) : juce::FontOptions (13.0f));
+        g.setFont (laf_ != nullptr ? laf_->uiFont (12.0f, true) : juce::FontOptions (12.0f));
         g.drawText (juce::String ((int) visible_.size()) + " sounds",
-                    getWidth() - 110, 4, 100, 18, juce::Justification::centredRight);
+                    getWidth() - 96, 2, 88, 16, juce::Justification::centredRight);
     }
 
     void resized() override
     {
         auto a = getLocalBounds().reduced (8);
-        a.removeFromTop (22);
-        auto top = a.removeFromTop (32);
-        favOnly.setBounds (top.removeFromRight (64).reduced (2));
-        sortBox.setBounds (top.removeFromRight (100).reduced (2));
-        search.setBounds (top.reduced (2));
-        a.removeFromTop (8);
-        chipViewport.setBounds (a.removeFromTop (34));
-        {
-            int x = 0;
-            for (auto* b : chips)
-            {
-                const int w = juce::jmax (72, b->getButtonText().length() * 9 + 20);
-                b->setBounds (x, 2, w, 30);
-                x += w + 4;
-            }
-            chipRow.setSize (x + 8, 34);
-        }
+        a.removeFromTop (18);
+
+        auto searchRow = a.removeFromTop (30);
+        sortBox.setBounds (searchRow.removeFromRight (96).reduced (2));
+        searchRow.removeFromRight (4);
+        search.setBounds (searchRow.reduced (0, 1));
+
         a.removeFromTop (6);
-        hint.setBounds (a.removeFromTop (18));
+        const int chipH = chipWrap.layout (a.getWidth());
+        chipWrap.setBounds (a.removeFromTop (chipH));
+
         a.removeFromTop (4);
+        hint.setBounds (a.removeFromTop (16));
+        a.removeFromTop (2);
         viewport.setBounds (a);
         layoutGrid();
     }
 
 private:
+    /** Wraps category chips so every label stays fully visible (no horizontal clip). */
+    struct ChipWrap : public juce::Component
+    {
+        int layout (int width)
+        {
+            const int gap = 5;
+            const int rowH = 28;
+            int x = 0, y = 0, rows = 1;
+            for (auto* c : getChildren())
+            {
+                auto* b = dynamic_cast<juce::Button*> (c);
+                if (b == nullptr) continue;
+                const int w = juce::jmax (52, b->getButtonText().length() * 8 + 18);
+                if (x > 0 && x + w > width)
+                {
+                    x = 0;
+                    y += rowH + gap;
+                    ++rows;
+                }
+                b->setBounds (x, y, w, rowH);
+                x += w + gap;
+            }
+            return y + rowH;
+        }
+    };
+
+    struct HeartButton : public juce::Button
+    {
+        HeartButton() : juce::Button ("fav") {}
+        juce::Colour onCol { 0xff00f0ff }, offCol { 0xff8a8a8a };
+        void paintButton (juce::Graphics& g, bool over, bool down) override
+        {
+            g.setColour ((getButtonText().contains (juce::CharPointer_UTF8 ("\xe2\x99\xa5")) ? onCol : offCol)
+                             .withAlpha (over || down ? 1.0f : 0.9f));
+            g.setFont (juce::FontOptions (16.0f));
+            g.drawText (getButtonText(), getLocalBounds(), juce::Justification::centred);
+        }
+    };
+
     struct CardButton : public juce::Component
     {
         SoundLibrary& owner;
         int index = -1;
         PresetInfo info;
         float hover = 0.0f;
+        HeartButton favBtn;
 
         explicit CardButton (SoundLibrary& o) : owner (o)
         {
             setMouseCursor (juce::MouseCursor::PointingHandCursor);
+            favBtn.setButtonText (juce::CharPointer_UTF8 ("\xe2\x99\xa1"));
+            favBtn.onClick = [safe = juce::Component::SafePointer<CardButton> (this)] {
+                if (safe == nullptr) return;
+                const int idx = safe->index;
+                const bool rebuildFav = safe->owner.activeCollection_.equalsIgnoreCase ("Favorites");
+                if (safe->owner.onFavorite)
+                    safe->owner.onFavorite (idx);
+                if (rebuildFav)
+                {
+                    juce::MessageManager::callAsync ([ow = &safe->owner] {
+                        ow->rebuild();
+                    });
+                }
+                else if (safe != nullptr)
+                {
+                    safe->refreshFav();
+                }
+            };
+            addAndMakeVisible (favBtn);
+        }
+
+        void refreshFav()
+        {
+            const bool fav = owner.presets_.isFavorite (info.name);
+            favBtn.setButtonText (fav ? juce::CharPointer_UTF8 ("\xe2\x99\xa5")
+                                      : juce::CharPointer_UTF8 ("\xe2\x99\xa1"));
+            auto* laf = owner.laf_;
+            favBtn.onCol = laf != nullptr ? laf->mint() : juce::Colour (0xff00f0ff);
+            favBtn.offCol = laf != nullptr ? laf->textSecondary() : juce::Colour (0xff8a8a8a);
+            favBtn.repaint();
+        }
+
+        void resized() override
+        {
+            // Heart sits on the meta row (below art), top-right of card body
+            favBtn.setBounds (getWidth() - 30, 54, 26, 24);
         }
 
         void paint (juce::Graphics& g) override
         {
-            auto b = getLocalBounds().toFloat().reduced (3.0f - hover * 1.5f);
+            auto b = getLocalBounds().toFloat().reduced (2.5f);
             auto* laf = owner.laf_;
             const bool sel = owner.selected_ == index;
             if (laf != nullptr)
-                laf->drawCard (g, b, sel, hover > 0.2f, 12.0f);
+                laf->drawCard (g, b, sel, hover > 0.2f, 10.0f);
 
-            auto art = b.removeFromTop (b.getHeight() * 0.48f).reduced (8.0f, 8.0f);
+            auto art = b.removeFromTop (52.0f).reduced (8.0f, 6.0f);
             paintCover (g, art);
 
-            const bool fav = owner.presets_.isFavorite (info.name);
-            g.setColour (fav ? (laf != nullptr ? laf->mint() : juce::Colours::cyan)
-                             : (laf != nullptr ? laf->textSecondary() : juce::Colours::grey));
-            g.setFont (juce::FontOptions (16.0f));
-            g.drawText (fav ? juce::CharPointer_UTF8 ("\xe2\x99\xa5") : juce::CharPointer_UTF8 ("\xe2\x99\xa1"),
-                        (int) b.getRight() - 26, (int) b.getY() + 4, 22, 18, juce::Justification::centred);
-
             g.setColour (laf != nullptr ? laf->textPrimary() : juce::Colours::white);
-            g.setFont (laf != nullptr ? laf->uiFont (16.0f, true) : juce::FontOptions (16.0f));
-            g.drawText (info.name, (int) b.getX() + 10, (int) b.getY() + 2, (int) b.getWidth() - 36, 22,
+            g.setFont (laf != nullptr ? laf->uiFont (14.0f, true) : juce::FontOptions (14.0f));
+            g.drawText (info.name, (int) b.getX() + 8, (int) b.getY() + 2, (int) b.getWidth() - 36, 18,
                         juce::Justification::centredLeft, true);
 
-            auto chip = juce::Rectangle<float> (b.getX() + 10.0f, b.getY() + 28.0f, 86.0f, 18.0f);
-            g.setColour ((laf != nullptr ? laf->mint() : juce::Colours::cyan).withAlpha (0.28f));
-            g.fillRoundedRectangle (chip, 8.0f);
+            auto meta = juce::Rectangle<float> (b.getX() + 8.0f, b.getY() + 22.0f, b.getWidth() - 40.0f, 18.0f);
+            const auto moodW = juce::jmin (96.0f, meta.getWidth() * 0.45f);
+            auto moodR = meta.removeFromLeft (moodW);
+            g.setColour ((laf != nullptr ? laf->mint() : juce::Colours::cyan).withAlpha (0.22f));
+            g.fillRoundedRectangle (moodR, 7.0f);
             g.setColour (laf != nullptr ? laf->textPrimary() : juce::Colours::white);
-            g.setFont (laf != nullptr ? laf->uiFont (12.0f, true) : juce::FontOptions (12.0f));
-            g.drawText (info.mood, chip, juce::Justification::centred, true);
+            g.setFont (laf != nullptr ? laf->uiFont (11.0f, true) : juce::FontOptions (11.0f));
+            g.drawText (info.mood, moodR.reduced (4.0f, 0.0f), juce::Justification::centred, true);
 
+            meta.removeFromLeft (6.0f);
             g.setColour (laf != nullptr ? laf->textSecondary() : juce::Colours::grey);
-            g.setFont (laf != nullptr ? laf->uiFont (12.5f, true) : juce::FontOptions (12.5f));
+            g.setFont (laf != nullptr ? laf->uiFont (11.0f, true) : juce::FontOptions (11.0f));
             const auto kind = info.kind == LibraryItemKind::Wavetable ? "Wavetable"
                             : info.kind == LibraryItemKind::Sample ? "Sample" : info.category;
-            g.drawText (kind, (int) chip.getRight() + 8, (int) chip.getY(), 110, 18,
-                        juce::Justification::centredLeft, true);
+            g.drawText (kind, meta, juce::Justification::centredLeft, true);
 
-            // PLAY badge on hover
-            if (hover > 0.4f)
+            if (hover > 0.35f)
             {
-                auto badge = juce::Rectangle<float> (art.getRight() - 52.0f, art.getBottom() - 22.0f, 46.0f, 18.0f);
-                g.setColour ((laf != nullptr ? laf->ember() : juce::Colours::white).withAlpha (0.9f));
-                g.fillRoundedRectangle (badge, 6.0f);
+                auto badge = juce::Rectangle<float> (art.getRight() - 48.0f, art.getBottom() - 20.0f, 44.0f, 16.0f);
+                g.setColour ((laf != nullptr ? laf->ember() : juce::Colours::white).withAlpha (0.92f));
+                g.fillRoundedRectangle (badge, 5.0f);
                 g.setColour (laf != nullptr && laf->isLightTheme() ? juce::Colours::white : juce::Colours::black);
-                g.setFont (laf != nullptr ? laf->uiFont (10.0f, true) : juce::FontOptions (10.0f));
+                g.setFont (laf != nullptr ? laf->uiFont (9.5f, true) : juce::FontOptions (9.5f));
                 g.drawText ("PLAY", badge, juce::Justification::centred);
             }
 
-            auto wave = b.removeFromBottom (18.0f).reduced (10.0f, 3.0f);
+            auto wave = b.removeFromBottom (14.0f).reduced (8.0f, 2.0f);
             paintWave (g, wave);
         }
 
@@ -209,36 +271,34 @@ private:
             auto c1 = (laf != nullptr ? laf->ember() : juce::Colours::white).interpolatedWith (
                 laf != nullptr ? laf->mint() : juce::Colours::cyan, t * 0.7f);
             auto c2 = (laf != nullptr ? laf->surface() : juce::Colour (0xff111111));
-            juce::ColourGradient grad (c1.withAlpha (0.75f), art.getTopLeft(),
+            juce::ColourGradient grad (c1.withAlpha (0.7f), art.getTopLeft(),
                                        c2, art.getBottomRight(), false);
             g.setGradientFill (grad);
-            g.fillRoundedRectangle (art, 10.0f);
-            g.setColour (juce::Colours::black.withAlpha (0.25f));
-            g.drawRoundedRectangle (art.reduced (0.5f), 10.0f, 1.0f);
+            g.fillRoundedRectangle (art, 8.0f);
 
             juce::Path wave;
-            for (int i = 0; i < 32; ++i)
+            for (int i = 0; i < 28; ++i)
             {
-                const float u = (float) i / 31.0f;
+                const float u = (float) i / 27.0f;
                 const float x = art.getX() + u * art.getWidth();
                 const float y = art.getCentreY()
                     + std::sin (u * 6.28f * (1.2f + (h % 3)) + owner.phase_)
-                      * art.getHeight() * 0.22f * (0.45f + info.energy);
+                      * art.getHeight() * 0.28f * (0.45f + info.energy);
                 if (i == 0) wave.startNewSubPath (x, y);
                 else wave.lineTo (x, y);
             }
-            g.setColour ((laf != nullptr ? laf->mint() : juce::Colours::cyan).withAlpha (0.7f));
-            g.strokePath (wave, juce::PathStrokeType (2.0f));
+            g.setColour ((laf != nullptr ? laf->mint() : juce::Colours::cyan).withAlpha (0.75f));
+            g.strokePath (wave, juce::PathStrokeType (1.8f));
         }
 
         void paintWave (juce::Graphics& g, juce::Rectangle<float> wave)
         {
             auto* laf = owner.laf_;
-            g.setColour ((laf != nullptr ? laf->mint() : juce::Colours::cyan).withAlpha (0.65f));
+            g.setColour ((laf != nullptr ? laf->mint() : juce::Colours::cyan).withAlpha (0.55f));
             juce::Path p;
-            for (int i = 0; i < 40; ++i)
+            for (int i = 0; i < 36; ++i)
             {
-                const float u = (float) i / 39.0f;
+                const float u = (float) i / 35.0f;
                 const float seed = (float) ((info.artworkSeed >> (i % 8)) & 7) / 7.0f;
                 const float hh = (0.2f + seed * 0.75f) * wave.getHeight();
                 const float x = wave.getX() + u * wave.getWidth();
@@ -246,7 +306,7 @@ private:
                 if (i == 0) p.startNewSubPath (x, y);
                 else p.lineTo (x, y);
             }
-            g.strokePath (p, juce::PathStrokeType (1.4f));
+            g.strokePath (p, juce::PathStrokeType (1.2f));
         }
 
         void mouseEnter (const juce::MouseEvent&) override { hover = 1.0f; repaint(); }
@@ -254,12 +314,9 @@ private:
 
         void mouseDown (const juce::MouseEvent& e) override
         {
-            if (e.mods.isPopupMenu() || (e.x > getWidth() - 30 && e.y < 30))
-            {
-                if (owner.onFavorite) owner.onFavorite (index);
-                repaint();
+            // Heart is its own button — card click only loads/auditions
+            if (favBtn.getBounds().contains (e.getPosition()))
                 return;
-            }
             owner.selected_ = index;
             if (owner.onSelect) owner.onSelect (index);
             if (owner.onPreview) owner.onPreview (index);
@@ -275,13 +332,11 @@ private:
         void resized() override { owner.layoutGrid(); }
     };
 
-    struct ChipRow : public juce::Component {};
-
     void rebuild()
     {
         visible_ = presets_.filteredIndices (activeCollection_, search.getText(),
-                                             favOnly.getToggleState());
-        // Sort
+                                             activeCollection_.equalsIgnoreCase ("Favorites"));
+
         const int sortMode = sortBox.getSelectedId();
         std::sort (visible_.begin(), visible_.end(), [&] (int a, int b) {
             const auto& pa = presets_.presets()[(size_t) a];
@@ -300,6 +355,7 @@ private:
             auto card = std::make_unique<CardButton> (*this);
             card->index = vi;
             card->info = presets_.presets()[(size_t) vi];
+            card->refreshFav();
             grid.addAndMakeVisible (*card);
             grid.cards.push_back (std::move (card));
         }
@@ -309,17 +365,18 @@ private:
 
     void layoutGrid()
     {
-        const int cols = juce::jmax (1, viewport.getWidth() / 176);
-        const int cardW = juce::jmax (160, (viewport.getWidth() - 8) / cols);
-        const int cardH = 168;
+        // Prefer one readable column in the narrow browser; two when wide enough
+        const int cols = viewport.getWidth() >= 300 ? 2 : 1;
+        const int cardW = juce::jmax (140, (viewport.getWidth() - 6) / cols);
+        const int cardH = 118;
         int i = 0;
         for (auto& c : grid.cards)
         {
-            c->setBounds ((i % cols) * cardW + 2, (i / cols) * cardH + 2, cardW - 4, cardH - 4);
+            c->setBounds ((i % cols) * cardW + 1, (i / cols) * cardH + 1, cardW - 2, cardH - 2);
             ++i;
         }
         const int rows = (int) ((grid.cards.size() + cols - 1) / juce::jmax (1, cols));
-        grid.setSize (viewport.getWidth(), juce::jmax (viewport.getHeight(), rows * cardH + 8));
+        grid.setSize (viewport.getWidth(), juce::jmax (viewport.getHeight(), rows * cardH + 4));
     }
 
     void timerCallback() override
@@ -332,12 +389,11 @@ private:
     PresetManager& presets_;
     ScorionLookAndFeel* laf_ = nullptr;
     juce::TextEditor search;
-    juce::TextButton favOnly;
     juce::ComboBox sortBox;
     juce::Label hint;
     juce::OwnedArray<juce::TextButton> chips;
-    juce::Viewport chipViewport, viewport;
-    ChipRow chipRow;
+    ChipWrap chipWrap;
+    juce::Viewport viewport;
     GridComp grid { *this };
     std::vector<int> visible_;
     juce::String activeCollection_ { "All" };

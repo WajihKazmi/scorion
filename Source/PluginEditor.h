@@ -60,7 +60,7 @@ private:
     juce::TextButton nextButton { ">" };
     juce::TextButton panicButton { "Panic" };
     juce::TextButton warmButton { "Warm" };
-    juce::TextButton balancedButton { "Balanced" };
+    juce::TextButton balancedButton { "Bal" };
     juce::TextButton openButton { "Open" };
     juce::TextButton playTab { "Play" };
     juce::TextButton settingsTab { "Settings" };

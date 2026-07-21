@@ -10,7 +10,7 @@ class PortalStage : public juce::Component,
                     private juce::Timer
 {
 public:
-    PortalStage() { startTimerHz (40); }
+    PortalStage() { startTimerHz (30); }
 
     void setLookAndFeelRef (ScorionLookAndFeel* laf) { laf_ = laf; }
     void setEnergy (float e) { energy_ = juce::jlimit (0.0f, 1.0f, e); }
@@ -23,8 +23,18 @@ public:
             float e = 0.0f;
             for (int j = a; j < b; ++j) e += data[(size_t) j] * data[(size_t) j];
             e = std::sqrt (e / (float) juce::jmax (1, b - a));
-            spokes_[(size_t) i] += 0.3f * (juce::jlimit (0.0f, 1.0f, e * 7.0f) - spokes_[(size_t) i]);
+            spokes_[(size_t) i] += 0.12f * (juce::jlimit (0.0f, 1.0f, e * 6.0f) - spokes_[(size_t) i]);
         }
+        // Spatial smooth on spokes
+        std::array<float, kSpokes> blur {};
+        for (int i = 0; i < kSpokes; ++i)
+        {
+            const float a = spokes_[(size_t) ((i + kSpokes - 1) % kSpokes)];
+            const float b = spokes_[(size_t) i];
+            const float c = spokes_[(size_t) ((i + 1) % kSpokes)];
+            blur[(size_t) i] = 0.2f * a + 0.6f * b + 0.2f * c;
+        }
+        spokes_ = blur;
     }
 
     void paint (juce::Graphics& g) override
@@ -110,7 +120,7 @@ private:
 
     void timerCallback() override
     {
-        phase_ += 0.045f + energy_ * 0.08f;
+        phase_ += 0.028f + energy_ * 0.045f;
         // Spawn / update particles
         if (energy_ > 0.08f && (int) (phase_ * 10.0f) % 3 == 0)
         {

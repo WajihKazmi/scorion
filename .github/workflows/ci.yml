@@ -41,7 +41,7 @@ jobs:
             build/Scorion_artefacts/Release/VST3/Scorion.vst3
             build/Scorion_artefacts/Release/AU/Scorion.component
 
-  build-windows-installer:
+  build-windows:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
@@ -63,19 +63,19 @@ jobs:
       - name: Install Inno Setup
         run: choco install innosetup -y --no-progress
 
-      - name: Compile Setup.exe
+      - name: Package Windows VST3 bundle
         shell: pwsh
         run: |
           & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" installer\windows\ScorionSetup.iss
 
-      - name: Upload Windows installer
+      - name: Upload Windows VST3
         uses: actions/upload-artifact@v4
         with:
-          name: scorion-windows-setup
+          name: scorion-windows
           path: |
+            dist/windows/Scorion.vst3
+            dist/windows/ScorionResources
             dist/Scorion-Setup-Windows.exe
-            installer/windows/install_fl_studio.bat
-            installer/windows/README.md
 
       - name: Attach to GitHub Release
         if: github.event_name == 'release'

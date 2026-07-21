@@ -200,60 +200,83 @@ void ScorionLookAndFeel::applyColourIds()
 
 void ScorionLookAndFeel::drawPanel (juce::Graphics& g, juce::Rectangle<float> bounds, float corner) const
 {
-    // Soft drop shadow
-    g.setColour (juce::Colours::black.withAlpha (isLightTheme() ? 0.12f : 0.55f));
-    g.fillRoundedRectangle (bounds.translated (0.0f, 3.0f), corner);
+    // Multi-layer contact shadow
+    g.setColour (juce::Colours::black.withAlpha (isLightTheme() ? 0.06f : 0.42f));
+    g.fillRoundedRectangle (bounds.translated (0.0f, 5.0f).expanded (1.0f, 0.0f), corner + 1.0f);
+    g.setColour (juce::Colours::black.withAlpha (isLightTheme() ? 0.10f : 0.55f));
+    g.fillRoundedRectangle (bounds.translated (0.0f, 2.5f), corner);
 
-    // Panel fill with subtle top-light gradient
     {
-        juce::ColourGradient grad (panel_.brighter (isLightTheme() ? 0.02f : 0.06f),
+        juce::ColourGradient grad (panel_.brighter (isLightTheme() ? 0.04f : 0.10f),
                                    bounds.getCentreX(), bounds.getY(),
-                                   panel_.darker (isLightTheme() ? 0.04f : 0.08f),
+                                   panel_.darker (isLightTheme() ? 0.05f : 0.12f),
                                    bounds.getCentreX(), bounds.getBottom(), false);
         g.setGradientFill (grad);
         g.fillRoundedRectangle (bounds, corner);
     }
-    g.setColour (border_);
+
+    // Top specular lip
+    {
+        juce::Path lip;
+        lip.addRoundedRectangle (bounds.getX() + 1.0f, bounds.getY() + 1.0f,
+                                 bounds.getWidth() - 2.0f, juce::jmin (18.0f, bounds.getHeight() * 0.22f),
+                                 corner - 1.0f);
+        g.setColour (juce::Colours::white.withAlpha (isLightTheme() ? 0.18f : 0.06f));
+        g.fillPath (lip);
+    }
+
+    g.setColour (border_.withAlpha (0.95f));
     g.drawRoundedRectangle (bounds.reduced (0.5f), corner, 1.0f);
-    g.setColour (mint_.withAlpha (0.10f));
-    g.drawRoundedRectangle (bounds.reduced (1.5f), corner - 1.0f, 1.0f);
+    g.setColour (textPrimary_.withAlpha (0.04f));
+    g.drawRoundedRectangle (bounds.reduced (2.0f), corner - 1.0f, 1.0f);
 }
 
 void ScorionLookAndFeel::drawInsetWell (juce::Graphics& g, juce::Rectangle<float> bounds, float corner) const
 {
-    g.setColour (juce::Colours::black.withAlpha (isLightTheme() ? 0.08f : 0.65f));
-    g.fillRoundedRectangle (bounds.translated (0, 1), corner);
+    g.setColour (juce::Colours::black.withAlpha (isLightTheme() ? 0.10f : 0.72f));
+    g.fillRoundedRectangle (bounds.translated (0, 1.5f), corner);
     {
-        juce::ColourGradient grad (bg_.darker (0.2f), bounds.getCentreX(), bounds.getY(),
-                                   surface_, bounds.getCentreX(), bounds.getBottom(), false);
+        juce::ColourGradient grad (bg_.darker (0.28f), bounds.getCentreX(), bounds.getY(),
+                                   surface_.brighter (0.02f), bounds.getCentreX(), bounds.getBottom(), false);
         g.setGradientFill (grad);
         g.fillRoundedRectangle (bounds, corner);
     }
+    // Inner rim highlight bottom
+    g.setColour (juce::Colours::white.withAlpha (isLightTheme() ? 0.12f : 0.04f));
+    g.drawRoundedRectangle (bounds.reduced (1.0f).translated (0, 0.5f), corner - 1.0f, 1.0f);
     g.setColour (border_);
     g.drawRoundedRectangle (bounds.reduced (0.5f), corner, 1.0f);
 }
 
 void ScorionLookAndFeel::drawCard (juce::Graphics& g, juce::Rectangle<float> bounds, bool selected, bool hovered, float corner) const
 {
-    g.setColour (juce::Colours::black.withAlpha (isLightTheme() ? 0.08f : 0.45f));
-    g.fillRoundedRectangle (bounds.translated (0, hovered || selected ? 1.0f : 3.0f), corner);
+    g.setColour (juce::Colours::black.withAlpha (isLightTheme() ? 0.08f : 0.50f));
+    g.fillRoundedRectangle (bounds.translated (0, hovered || selected ? 1.5f : 3.5f).expanded (0.5f, 0), corner);
+    g.setColour (juce::Colours::black.withAlpha (isLightTheme() ? 0.05f : 0.28f));
+    g.fillRoundedRectangle (bounds.translated (0, hovered || selected ? 0.5f : 1.5f), corner);
 
     {
-        juce::ColourGradient grad (card_.brighter (hovered ? 0.08f : 0.03f),
+        juce::ColourGradient grad (card_.brighter (hovered ? 0.10f : (selected ? 0.06f : 0.04f)),
                                    bounds.getCentreX(), bounds.getY(),
-                                   card_.darker (0.06f), bounds.getCentreX(), bounds.getBottom(), false);
+                                   card_.darker (0.08f), bounds.getCentreX(), bounds.getBottom(), false);
         g.setGradientFill (grad);
         g.fillRoundedRectangle (bounds, corner);
     }
 
+    g.setColour (juce::Colours::white.withAlpha (hovered ? 0.07f : 0.035f));
+    g.fillRoundedRectangle (bounds.getX() + 1.0f, bounds.getY() + 1.0f,
+                            bounds.getWidth() - 2.0f, 10.0f, corner - 1.0f);
+
     if (selected)
     {
-        g.setColour (mint_.withAlpha (0.9f));
+        g.setColour (mint_.withAlpha (0.95f));
         g.drawRoundedRectangle (bounds.reduced (0.5f), corner, 1.8f);
+        g.setColour (mint_.withAlpha (0.18f));
+        g.drawRoundedRectangle (bounds.reduced (-0.5f), corner + 1.0f, 3.0f);
     }
     else
     {
-        g.setColour (hovered ? mint_.withAlpha (0.4f) : border_);
+        g.setColour (hovered ? mint_.withAlpha (0.45f) : border_);
         g.drawRoundedRectangle (bounds.reduced (0.5f), corner, hovered ? 1.4f : 1.0f);
     }
 }
@@ -292,7 +315,7 @@ void ScorionLookAndFeel::drawRotarySlider (juce::Graphics& g, int x, int y, int 
     const bool hero = slider.getName() == "hero" || width >= 92;
     const bool mod = slider.getName() == "mod" || slider.getComponentID() == "mod"
                      || slider.getComponentID().contains ("modring");
-    const float scalePad = showKnobScales_ ? (hero ? 14.0f : 12.0f) : 4.0f;
+    const float scalePad = showKnobScales_ ? (hero ? 14.0f : 11.0f) : 3.0f;
     const float size = juce::jmin (bounds.getWidth(), bounds.getHeight() - scalePad);
     auto knob = juce::Rectangle<float> (bounds.getCentreX() - size * 0.5f, bounds.getY() + 2.0f, size, size);
     const auto centre = knob.getCentre();
@@ -300,111 +323,98 @@ void ScorionLookAndFeel::drawRotarySlider (juce::Graphics& g, int x, int y, int 
     const float angle = rotaryStartAngle + sliderPos * (rotaryEndAngle - rotaryStartAngle);
     const auto accent = mod ? mint_ : ember_;
     const bool active = slider.isMouseOverOrDragging() || slider.isMouseButtonDown();
-    const float glow = active ? 1.0f : 0.0f;
 
-    // Soft contact shadow
-    g.setColour (juce::Colours::black.withAlpha (isLightTheme() ? 0.08f : 0.35f));
-    g.fillEllipse (centre.x - radius + 1.5f, centre.y - radius + 3.0f, radius * 2.0f, radius * 2.0f);
+    g.setColour (juce::Colours::black.withAlpha (isLightTheme() ? 0.08f : 0.40f));
+    g.fillEllipse (centre.x - radius + 2.0f, centre.y - radius + 4.5f, radius * 2.0f, radius * 2.0f);
+    g.setColour (juce::Colours::black.withAlpha (isLightTheme() ? 0.05f : 0.22f));
+    g.fillEllipse (centre.x - radius + 1.0f, centre.y - radius + 2.0f, radius * 2.0f, radius * 2.0f);
 
-    // Flat sober body
     {
-        const auto bodyTop = surfaceHi_.interpolatedWith (textPrimary_, isLightTheme() ? 0.04f : 0.06f);
-        const auto bodyBot = surface_.darker (0.12f);
-        juce::ColourGradient body (bodyTop, centre.x, centre.y - radius,
-                                   bodyBot, centre.x, centre.y + radius, false);
+        juce::ColourGradient body (surfaceHi_.brighter (0.12f), centre.x, centre.y - radius,
+                                   surface_.darker (0.18f), centre.x, centre.y + radius, false);
         g.setGradientFill (body);
         g.fillEllipse (knob);
     }
+    {
+        juce::ColourGradient sheen (juce::Colours::white.withAlpha (active ? 0.16f : 0.08f),
+                                    centre.x - radius * 0.25f, centre.y - radius * 0.7f,
+                                    juce::Colours::transparentWhite, centre.x, centre.y + radius * 0.1f, true);
+        g.setGradientFill (sheen);
+        g.fillEllipse (knob.reduced (radius * 0.12f));
+    }
 
-    // Thin rim
-    g.setColour (border_.withAlpha (0.9f));
-    g.drawEllipse (knob.reduced (0.5f), 1.0f);
+    g.setColour (border_.withAlpha (0.95f));
+    g.drawEllipse (knob.reduced (0.6f), 1.15f);
 
-    // Quiet track (full travel)
     {
         juce::Path track;
-        track.addCentredArc (centre.x, centre.y, radius - 3.0f, radius - 3.0f, 0.0f,
+        track.addCentredArc (centre.x, centre.y, radius - 2.8f, radius - 2.8f, 0.0f,
                              rotaryStartAngle, rotaryEndAngle, true);
-        g.setColour (textPrimary_.withAlpha (0.12f));
-        g.strokePath (track, juce::PathStrokeType (hero ? 1.6f : 1.25f, juce::PathStrokeType::curved,
+        g.setColour (textPrimary_.withAlpha (0.10f));
+        g.strokePath (track, juce::PathStrokeType (hero ? 1.5f : 1.2f, juce::PathStrokeType::curved,
                                                    juce::PathStrokeType::rounded));
     }
 
-    // Optional sparse scale ticks (sober)
     if (showKnobScales_)
     {
         for (int i = 0; i <= 10; ++i)
         {
             const float t = (float) i / 10.0f;
             const float a = rotaryStartAngle + t * (rotaryEndAngle - rotaryStartAngle);
-            const float r0 = radius - (hero ? 8.0f : 6.5f);
-            const float r1 = radius - 3.5f;
-            g.setColour (textPrimary_.withAlpha (i % 5 == 0 ? 0.35f : 0.14f));
+            const bool major = (i % 5) == 0;
+            const float r0 = radius - (major ? 7.5f : 5.5f);
+            const float r1 = radius - 3.0f;
+            g.setColour (textPrimary_.withAlpha (major ? 0.40f : 0.14f));
             g.drawLine (centre.x + std::cos (a) * r0, centre.y + std::sin (a) * r0,
-                        centre.x + std::cos (a) * r1, centre.y + std::sin (a) * r1, 1.0f);
-            if (hero && (i == 0 || i == 5 || i == 10))
-            {
-                const float lr = radius + 7.0f;
-                g.setColour (textSecondary_.withAlpha (0.75f));
-                g.setFont (valueFont (8.0f));
-                g.drawText (juce::String (i),
-                            (int) (centre.x + std::cos (a) * lr) - 8,
-                            (int) (centre.y + std::sin (a) * lr) - 5,
-                            16, 10, juce::Justification::centred, false);
-            }
+                        centre.x + std::cos (a) * r1, centre.y + std::sin (a) * r1,
+                        major ? 1.35f : 1.0f);
         }
     }
 
-    // Single indicator line — sober at rest, colour glow on hover / hold
     {
-        const float rInner = radius * (hero ? 0.18f : 0.20f);
-        const float rOuter = radius * (hero ? 0.72f : 0.70f);
+        const float rInner = radius * 0.18f;
+        const float rOuter = radius * 0.68f;
         const float x0 = centre.x + std::cos (angle) * rInner;
         const float y0 = centre.y + std::sin (angle) * rInner;
         const float x1 = centre.x + std::cos (angle) * rOuter;
         const float y1 = centre.y + std::sin (angle) * rOuter;
-        const float lineW = hero ? 2.0f : 1.6f;
+        const float lineW = hero ? 2.15f : 1.7f;
 
-        if (glow > 0.0f)
-        {
-            g.setColour (accent.withAlpha (0.22f + 0.18f * glow));
-            g.drawLine (x0, y0, x1, y1, lineW + 5.0f);
-            g.setColour (accent.withAlpha (0.45f));
-            g.drawLine (x0, y0, x1, y1, lineW + 2.2f);
-        }
-
-        // Core line: muted white at rest, accent when active
-        g.setColour (active ? accent.withAlpha (0.98f)
-                            : textPrimary_.withAlpha (isLightTheme() ? 0.55f : 0.72f));
-        g.drawLine (x0, y0, x1, y1, lineW);
-
-        // Tiny tip
-        const float tip = hero ? 2.4f : 2.0f;
-        g.setColour (active ? accent : textPrimary_.withAlpha (0.65f));
-        g.fillEllipse (x1 - tip, y1 - tip, tip * 2.0f, tip * 2.0f);
         if (active)
         {
-            g.setColour (accent.withAlpha (0.35f));
-            g.fillEllipse (x1 - tip * 2.2f, y1 - tip * 2.2f, tip * 4.4f, tip * 4.4f);
+            g.setColour (accent.withAlpha (0.18f));
+            g.drawLine (x0, y0, x1, y1, lineW + 7.0f);
+            g.setColour (accent.withAlpha (0.42f));
+            g.drawLine (x0, y0, x1, y1, lineW + 3.0f);
         }
+
+        g.setColour (active ? accent.withAlpha (0.98f)
+                            : textPrimary_.withAlpha (isLightTheme() ? 0.50f : 0.78f));
+        g.drawLine (x0, y0, x1, y1, lineW);
+
+        const float tip = hero ? 2.6f : 2.1f;
+        if (active)
+        {
+            g.setColour (accent.withAlpha (0.28f));
+            g.fillEllipse (x1 - tip * 2.4f, y1 - tip * 2.4f, tip * 4.8f, tip * 4.8f);
+        }
+        g.setColour (active ? accent : textPrimary_.withAlpha (0.7f));
+        g.fillEllipse (x1 - tip, y1 - tip, tip * 2.0f, tip * 2.0f);
+        g.setColour (juce::Colours::white.withAlpha (active ? 0.85f : 0.35f));
+        g.fillEllipse (x1 - tip * 0.45f, y1 - tip * 0.45f, tip * 0.9f, tip * 0.9f);
     }
 
-    // Quiet hub
     {
-        const float cr = hero ? 3.2f : 2.6f;
-        g.setColour (surface_.darker (0.2f));
+        const float cr = hero ? 3.4f : 2.7f;
+        juce::ColourGradient hub (surfaceHi_.brighter (0.2f), centre.x, centre.y - cr,
+                                  surface_.darker (0.25f), centre.x, centre.y + cr, false);
+        g.setGradientFill (hub);
         g.fillEllipse (centre.x - cr, centre.y - cr, cr * 2.0f, cr * 2.0f);
-        g.setColour (textPrimary_.withAlpha (active ? 0.45f : 0.22f));
+        g.setColour (textPrimary_.withAlpha (active ? 0.40f : 0.18f));
         g.drawEllipse (centre.x - cr, centre.y - cr, cr * 2.0f, cr * 2.0f, 1.0f);
     }
 
-    if (active)
-    {
-        g.setColour (accent.withAlpha (0.95f));
-        g.setFont (valueFont (10.5f));
-        g.drawText (slider.getTextFromValue (slider.getValue()),
-                    bounds.removeFromBottom (13.0f), juce::Justification::centred);
-    }
+    // Value readout lives in the sibling label / macro value — never paint it on the knob
 }
 
 void ScorionLookAndFeel::drawButtonBackground (juce::Graphics& g, juce::Button& button,

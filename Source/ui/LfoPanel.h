@@ -13,14 +13,47 @@ public:
     LfoPanel()
     {
         auto styleKnob = [this] (juce::Slider& s, juce::Label& l, const juce::String& name) {
-            s.setSliderStyle (juce::Slider::RotaryHorizontalVerticalDrag);
+            s.setSliderStyle (juce::Slider::RotaryVerticalDrag);
             s.setTextBoxStyle (juce::Slider::NoTextBox, false, 0, 0);
             s.setComponentID ("mod");
             s.setName ("mod");
+            s.setPopupDisplayEnabled (false, false, nullptr);
+            s.setScrollWheelEnabled (true);
+            s.setMouseDragSensitivity (160);
+            s.setVelocityBasedMode (true);
+            s.setVelocityModeParameters (0.8, 1, 0.09, true);
+            s.setWantsKeyboardFocus (false);
+            s.setTooltip (name);
+            s.textFromValueFunction = [] (double v) {
+                if (std::abs (v) >= 10.0) return juce::String (v, 1);
+                return juce::String (v, 2);
+            };
+
+            auto showValue = [&s, &l, this] {
+                l.setText (s.getTextFromValue (s.getValue()), juce::dontSendNotification);
+                if (laf_ != nullptr)
+                {
+                    l.setColour (juce::Label::textColourId, laf_->ember());
+                    l.setFont (laf_->valueFont (10.0f));
+                }
+            };
+            auto showName = [&l, name, this] {
+                l.setText (name, juce::dontSendNotification);
+                if (laf_ != nullptr)
+                {
+                    l.setColour (juce::Label::textColourId, laf_->textSecondary());
+                    l.setFont (laf_->labelFont());
+                }
+                else
+                    l.setFont (juce::FontOptions (10.0f));
+            };
+            s.onDragStart = showValue;
+            s.onValueChange = [showValue, &s] { if (s.isMouseButtonDown()) showValue(); };
+            s.onDragEnd = showName;
+
             addAndMakeVisible (s);
-            l.setText (name, juce::dontSendNotification);
+            showName();
             l.setJustificationType (juce::Justification::centred);
-            l.setFont (juce::FontOptions (10.0f));
             addAndMakeVisible (l);
         };
 
@@ -74,19 +107,30 @@ public:
             laf_->drawInsetWell (g, scope, 8.0f);
 
         juce::Path wave;
-        const int n = 64;
+        const int n = 128;
         for (int i = 0; i < n; ++i)
         {
             const float t = (float) i / (float) (n - 1);
-            const float ph = std::fmod (phase_ + t, 1.0f);
+            const float ph = std::fmod (phaseDisp_ + t, 1.0f);
             float v = std::sin (ph * juce::MathConstants<float>::twoPi);
+            const int wi = waveBox.getSelectedItemIndex();
+            if (wi == 1) v = 2.0f * std::abs (2.0f * ph - 1.0f) - 1.0f; // tri
+            else if (wi == 2) v = 2.0f * ph - 1.0f; // saw
+            else if (wi == 3) v = ph < 0.5f ? 1.0f : -1.0f; // square
             const float x = scope.getX() + t * scope.getWidth();
-            const float y = scope.getCentreY() - v * scope.getHeight() * 0.35f;
+            const float y = scope.getCentreY() - v * scope.getHeight() * 0.34f;
             if (i == 0) wave.startNewSubPath (x, y);
-            else wave.lineTo (x, y);
+            else
+            {
+                const float t0 = (float) (i - 1) / (float) (n - 1);
+                const float x0 = scope.getX() + t0 * scope.getWidth();
+                wave.quadraticTo (0.5f * (x0 + x), y, x, y);
+            }
         }
-        g.setColour ((laf_ != nullptr ? laf_->mint() : juce::Colours::green).withAlpha (0.85f));
-        g.strokePath (wave, juce::PathStrokeType (1.6f));
+        g.setColour ((laf_ != nullptr ? laf_->mint() : juce::Colours::cyan).withAlpha (0.25f));
+        g.strokePath (wave, juce::PathStrokeType (4.0f, juce::PathStrokeType::curved, juce::PathStrokeType::rounded));
+        g.setColour ((laf_ != nullptr ? laf_->mint() : juce::Colours::cyan).withAlpha (0.9f));
+        g.strokePath (wave, juce::PathStrokeType (1.6f, juce::PathStrokeType::curved, juce::PathStrokeType::rounded));
     }
 
     void resized() override
@@ -116,11 +160,15 @@ public:
 private:
     void timerCallback() override
     {
-        phase_ = std::fmod (phase_ + 0.02f, 1.0f);
+        phase_ = std::fmod (phase_ + 0.012f, 1.0f);
+        phaseDisp_ += 0.16f * (phase_ - phaseDisp_);
+        if (std::abs (phase_ - phaseDisp_) > 0.5f)
+            phaseDisp_ = phase_;
         repaint (getLocalBounds().removeFromTop (90));
     }
 
     ScorionLookAndFeel* laf_ = nullptr;
     juce::String title_ { "LFO 1" };
     float phase_ = 0.0f;
+    float phaseDisp_ = 0.0f;
 };

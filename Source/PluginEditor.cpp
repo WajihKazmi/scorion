@@ -5,19 +5,47 @@
 
 void ScorionAudioProcessorEditor::setupKnob (juce::Slider& s, juce::Label& lab, const juce::String& text, bool hero, bool mod)
 {
-    s.setSliderStyle (juce::Slider::RotaryHorizontalVerticalDrag);
+    // FL Studio-friendly: vertical drag maps cleanly to automation, wheel + shift-fine
+    s.setSliderStyle (juce::Slider::RotaryVerticalDrag);
     s.setTextBoxStyle (juce::Slider::NoTextBox, false, 0, 0);
-    s.setPopupDisplayEnabled (true, true, this);
-    s.setDoubleClickReturnValue (true, 0.5);
+    // Single value surface: the label under the knob (no floating popup)
+    s.setPopupDisplayEnabled (false, false, nullptr);
+    s.setScrollWheelEnabled (true);
+    s.setMouseDragSensitivity (160);
     s.setVelocityBasedMode (true);
-    s.setVelocityModeParameters (1.0, 1, 0.08, true); // shift = fine
+    s.setVelocityModeParameters (0.8, 1, 0.09, true);
+    s.setDoubleClickReturnValue (true, s.getDoubleClickReturnValue());
+    s.setWantsKeyboardFocus (false);
+    s.setTooltip (text);
+    s.textFromValueFunction = [] (double v) {
+        if (std::abs (v) >= 100.0) return juce::String (v, 0);
+        if (std::abs (v) >= 10.0)  return juce::String (v, 1);
+        return juce::String (v, 2);
+    };
     if (hero) s.setName ("hero");
     if (mod) { s.setName ("mod"); s.setComponentID ("mod"); }
+
+    auto showValue = [&s, &lab, this] {
+        lab.setText (s.getTextFromValue (s.getValue()), juce::dontSendNotification);
+        lab.setColour (juce::Label::textColourId, lookAndFeel.ember());
+        lab.setFont (lookAndFeel.valueFont (11.0f));
+    };
+    auto showName = [&lab, text, this] {
+        lab.setText (text, juce::dontSendNotification);
+        lab.setColour (juce::Label::textColourId, lookAndFeel.textSecondary());
+        lab.setFont (lookAndFeel.labelFont());
+    };
+
+    s.onDragStart = showValue;
+    s.onValueChange = [showValue, &s] {
+        if (s.isMouseButtonDown())
+            showValue();
+    };
+    s.onDragEnd = showName;
+
     addAndMakeVisible (s);
-    lab.setText (text, juce::dontSendNotification);
+    showName();
     lab.setJustificationType (juce::Justification::centred);
-    lab.setColour (juce::Label::textColourId, lookAndFeel.textSecondary());
-    lab.setFont (lookAndFeel.labelFont());
     addAndMakeVisible (lab);
 }
 
@@ -238,10 +266,7 @@ ScorionAudioProcessorEditor::ScorionAudioProcessorEditor (ScorionAudioProcessor&
     soundLibrary->onFavorite = [this] (int i) {
         const auto& presets = proc.getPresetManager().presets();
         if (juce::isPositiveAndBelow (i, (int) presets.size()))
-        {
             proc.getPresetManager().toggleFavorite (presets[(size_t) i].name);
-            soundLibrary->refreshFromManager();
-        }
     };
     soundLibrary->onPreview = [this] (int) { /* audition already in onSelect */ };
     addAndMakeVisible (*soundLibrary);
@@ -327,6 +352,32 @@ ScorionAudioProcessorEditor::ScorionAudioProcessorEditor (ScorionAudioProcessor&
     fmIndexAttach = std::make_unique<Attachment> (proc.getAPVTS(), "fmIndex", fmIndexSlider);
     grainDensityAttach = std::make_unique<Attachment> (proc.getAPVTS(), "grainDensity", grainDensitySlider);
     masterAttach = std::make_unique<Attachment> (proc.getAPVTS(), "masterGain", masterSlider);
+
+    // Double-click restores host-default (FL Studio friendly reset)
+    auto wireDefault = [this] (juce::Slider& s, const char* id) {
+        if (auto* p = proc.getAPVTS().getParameter (id))
+            s.setDoubleClickReturnValue (true, (double) p->convertFrom0to1 (p->getDefaultValue()));
+    };
+    wireDefault (cutoffSlider, "filterCutoff");
+    wireDefault (resonanceSlider, "filterResonance");
+    wireDefault (attackSlider, "ampAttack");
+    wireDefault (decaySlider, "ampDecay");
+    wireDefault (sustainSlider, "ampSustain");
+    wireDefault (releaseSlider, "ampRelease");
+    wireDefault (filterEnvSlider, "filterEnvAmount");
+    wireDefault (unisonSlider, "unisonDetune");
+    wireDefault (reverbSlider, "reverbMix");
+    wireDefault (delaySlider, "delayMix");
+    wireDefault (wtPosSlider, "wtPosition");
+    wireDefault (fmIndexSlider, "fmIndex");
+    wireDefault (grainDensitySlider, "grainDensity");
+    wireDefault (masterSlider, "masterGain");
+    wireDefault (headerReverb, "reverbMix");
+    wireDefault (headerDelay, "delayMix");
+    wireDefault (macroCard1.getKnob(), "macro1");
+    wireDefault (macroCard2.getKnob(), "macro2");
+    wireDefault (macroCard3.getKnob(), "macro3");
+    wireDefault (macroCard4.getKnob(), "macro4");
 
     adsrEditor.setLookAndFeelRef (&lookAndFeel);
     adsrEditor.onChanged = [this] (float a, float d, float s, float r) {
@@ -417,7 +468,7 @@ ScorionAudioProcessorEditor::ScorionAudioProcessorEditor (ScorionAudioProcessor&
     setResizeLimits (1280, 840, 2800, 1700);
     restoreUiSettings();
     refreshPresetLabel();
-    startTimerHz (48);
+    startTimerHz (30);
     setMainTab (0);
 
     juce::Timer::callAfterDelay (100, [safe = juce::Component::SafePointer<ScorionAudioProcessorEditor> (this)] {
@@ -551,8 +602,8 @@ void ScorionAudioProcessorEditor::timerCallback()
     float energy = 0.0f;
     for (auto s : snap) energy += s * s;
     energy = std::sqrt (energy / (float) snap.size());
-    energySmooth_ += 0.22f * (juce::jlimit (0.0f, 1.0f, energy * 5.0f) - energySmooth_);
-    backdropPhase_ += 0.02f + energySmooth_ * 0.04f;
+    energySmooth_ += 0.12f * (juce::jlimit (0.0f, 1.0f, energy * 5.0f) - energySmooth_);
+    backdropPhase_ += 0.012f + energySmooth_ * 0.025f;
 
     // Idle throttling: drop to ~20Hz when silent
     if (energySmooth_ < 0.02f)

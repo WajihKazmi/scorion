@@ -6,7 +6,7 @@
 #include <cmath>
 #include <deque>
 
-/** Scrolling spectrogram heat strip driven by probe bands. */
+/** Scrolling spectrogram with smoothed columns (less sparkle/glitch). */
 class Spectrogram : public juce::Component
 {
 public:
@@ -15,12 +15,40 @@ public:
 
     void pushBands (const std::array<float, 64>& bands)
     {
-        Column col {};
-        for (int i = 0; i < 64; ++i)
-            col[(size_t) i] = bands[(size_t) i];
-        history_.push_back (col);
-        while ((int) history_.size() > maxCols_)
-            history_.pop_front();
+        // Temporal + vertical smoothing into last column
+        Column target {};
+        for (int i = 0; i < kRows; ++i)
+        {
+            const int a0 = i * 64 / kRows;
+            const int a1 = (i + 1) * 64 / kRows;
+            float e = 0.0f;
+            for (int j = a0; j < a1; ++j) e += bands[(size_t) j];
+            target[(size_t) i] = e / (float) juce::jmax (1, a1 - a0);
+        }
+
+        if (! history_.empty())
+        {
+            auto& prev = history_.back();
+            for (int i = 0; i < kRows; ++i)
+                target[(size_t) i] = prev[(size_t) i] * 0.72f + target[(size_t) i] * 0.28f;
+        }
+
+        // Spatial blur
+        Column blur = target;
+        for (int i = 1; i < kRows - 1; ++i)
+            blur[(size_t) i] = 0.2f * target[(size_t) (i - 1)] + 0.6f * target[(size_t) i]
+                             + 0.2f * target[(size_t) (i + 1)];
+
+        // Only append every other push — slower scroll, calmer motion
+        if ((++pushCount_ % 2) == 0)
+        {
+            history_.push_back (blur);
+            while ((int) history_.size() > maxCols_)
+                history_.pop_front();
+        }
+        else if (! history_.empty())
+            history_.back() = blur;
+
         repaint();
     }
 
@@ -39,17 +67,17 @@ public:
         for (const auto& col : history_)
         {
             const float x = plot.getX() + (float) ci * cw;
-            for (int r = 0; r < 64; ++r)
+            for (int r = 0; r < kRows; ++r)
             {
                 const float v = col[(size_t) r];
-                if (v < 0.02f) continue;
-                const float y = plot.getBottom() - ((float) (r + 1) / 64.0f) * plot.getHeight();
-                const float h = plot.getHeight() / 64.0f;
-                auto c = (laf_ != nullptr ? laf_->ember() : juce::Colour (0xffC1122F))
-                             .interpolatedWith (laf_ != nullptr ? laf_->violet() : juce::Colour (0xff5E3B76),
-                                                (float) r / 64.0f);
-                g.setColour (c.withAlpha (0.15f + v * 0.75f));
-                g.fillRect (x, y, cw + 0.5f, h + 0.5f);
+                if (v < 0.03f) continue;
+                const float y = plot.getBottom() - ((float) (r + 1) / (float) kRows) * plot.getHeight();
+                const float h = plot.getHeight() / (float) kRows;
+                auto c = (laf_ != nullptr ? laf_->ember() : juce::Colours::white)
+                             .interpolatedWith (laf_ != nullptr ? laf_->mint() : juce::Colours::cyan,
+                                                (float) r / (float) kRows);
+                g.setColour (c.withAlpha (0.10f + v * 0.65f));
+                g.fillRect (x, y, cw + 0.8f, h + 0.6f);
             }
             ++ci;
         }
@@ -57,12 +85,15 @@ public:
         g.setColour (laf_ != nullptr ? laf_->textSecondary() : juce::Colours::grey);
         g.setFont (laf_ != nullptr ? laf_->labelFont() : juce::FontOptions (10.0f));
         g.drawText ("SPECTROGRAM", plot.getX(), plot.getY() - 2.0f, 90.0f, 12.0f, juce::Justification::centredLeft);
+        juce::ignoreUnused (energy_);
     }
 
 private:
-    using Column = std::array<float, 64>;
+    static constexpr int kRows = 32;
+    using Column = std::array<float, kRows>;
     ScorionLookAndFeel* laf_ = nullptr;
     std::deque<Column> history_;
-    int maxCols_ = 96;
+    int maxCols_ = 72;
+    int pushCount_ = 0;
     float energy_ = 0.0f;
 };
