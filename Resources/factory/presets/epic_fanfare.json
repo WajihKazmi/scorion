@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "name": "Epic Fanfare",
+  "category": "Leads",
+  "author": "Scorion Factory",
+  "engine": "FM",
+  "engineIndex": 2,
+  "tags": [
+    "lead",
+    "brass",
+    "epic",
+    "cinematic"
+  ],
+  "genres": [
+    "epic",
+    "cinematic"
+  ],
+  "parameters": {
+    "masterGain": 0.72,
+    "filterCutoff": 5000,
+    "filterResonance": 0.25,
+    "ampAttack": 0.02,
+    "ampDecay": 0.3,
+    "ampSustain": 0.7,
+    "ampRelease": 1.0,
+    "filterEnvAmount": 0.35,
+    "pulseWidth": 0.5,
+    "unisonDetune": 0.18,
+    "unisonCount": 2,
+    "wtPosition": 0.3,
+    "fmRatio": 1.0,
+    "fmIndex": 2.2,
+    "grainPosition": 0.3,
+    "grainSize": 0.1,
+    "grainDensity": 0.45,
+    "reverbMix": 0.45,
+    "delayMix": 0.12,
+    "macro1": 0.5,
+    "lfo1Rate": 0.4,
+    "lfo1ToCutoff": 0.12,
+    "engine": 2.0
+  },
+  "mood": "bright",
+  "energy": 0.75,
+  "brightness": 0.417,
+  "warmth": 0.863,
+  "artworkSeed": 3403345310
+}

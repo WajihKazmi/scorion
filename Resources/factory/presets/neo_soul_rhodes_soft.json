@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "name": "Neo Soul Rhodes Soft",
+  "category": "RnB",
+  "author": "Scorion Factory",
+  "engine": "Sampler",
+  "engineIndex": 4,
+  "tags": [
+    "rhodes",
+    "neo",
+    "rnb",
+    "neo-soul"
+  ],
+  "genres": [
+    "rnb",
+    "neo-soul"
+  ],
+  "parameters": {
+    "masterGain": 0.72,
+    "filterCutoff": 3800,
+    "filterResonance": 0.25,
+    "ampAttack": 0.015,
+    "ampDecay": 0.3,
+    "ampSustain": 0.7,
+    "ampRelease": 1.1,
+    "filterEnvAmount": 0.35,
+    "pulseWidth": 0.5,
+    "unisonDetune": 0.18,
+    "unisonCount": 1,
+    "wtPosition": 0.3,
+    "fmRatio": 2.0,
+    "fmIndex": 1.6,
+    "grainPosition": 0.3,
+    "grainSize": 0.1,
+    "grainDensity": 0.45,
+    "reverbMix": 0.45,
+    "delayMix": 0.12,
+    "macro1": 0.5,
+    "lfo1Rate": 0.4,
+    "lfo1ToCutoff": 0.12,
+    "engine": 4.0
+  },
+  "mood": "smooth",
+  "energy": 0.45,
+  "brightness": 0.317,
+  "warmth": 0.923,
+  "artworkSeed": 2487309828
+}

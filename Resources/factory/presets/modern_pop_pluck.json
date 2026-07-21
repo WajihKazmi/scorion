@@ -1,0 +1,46 @@
+{
+  "schema": 1,
+  "name": "Modern Pop Pluck",
+  "category": "Pop",
+  "author": "Scorion Factory",
+  "engine": "Wavetable",
+  "engineIndex": 1,
+  "tags": [
+    "pluck",
+    "modern",
+    "pop"
+  ],
+  "genres": [
+    "pop"
+  ],
+  "parameters": {
+    "masterGain": 0.72,
+    "filterCutoff": 7000,
+    "filterResonance": 0.25,
+    "ampAttack": 0.001,
+    "ampDecay": 0.25,
+    "ampSustain": 0.1,
+    "ampRelease": 0.35,
+    "filterEnvAmount": 0.35,
+    "pulseWidth": 0.5,
+    "unisonDetune": 0.18,
+    "unisonCount": 1,
+    "wtPosition": 0.45,
+    "fmRatio": 2.0,
+    "fmIndex": 1.6,
+    "grainPosition": 0.3,
+    "grainSize": 0.1,
+    "grainDensity": 0.45,
+    "reverbMix": 0.25,
+    "delayMix": 0.22,
+    "macro1": 0.5,
+    "lfo1Rate": 0.4,
+    "lfo1ToCutoff": 0.12,
+    "engine": 1.0
+  },
+  "mood": "bright",
+  "energy": 0.65,
+  "brightness": 0.583,
+  "warmth": 0.712,
+  "artworkSeed": 709405782
+}

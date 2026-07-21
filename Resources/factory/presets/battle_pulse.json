@@ -1,0 +1,45 @@
+{
+  "schema": 1,
+  "name": "Battle Pulse",
+  "category": "Epic",
+  "author": "Scorion Factory",
+  "engine": "Virtual Analog",
+  "engineIndex": 0,
+  "tags": [
+    "pulse",
+    "epic"
+  ],
+  "genres": [
+    "epic"
+  ],
+  "parameters": {
+    "masterGain": 0.72,
+    "filterCutoff": 3000,
+    "filterResonance": 0.25,
+    "ampAttack": 0.01,
+    "ampDecay": 0.3,
+    "ampSustain": 0.7,
+    "ampRelease": 0.45,
+    "filterEnvAmount": 0.35,
+    "pulseWidth": 0.25,
+    "unisonDetune": 0.3,
+    "unisonCount": 6,
+    "wtPosition": 0.3,
+    "fmRatio": 2.0,
+    "fmIndex": 1.6,
+    "grainPosition": 0.3,
+    "grainSize": 0.1,
+    "grainDensity": 0.45,
+    "reverbMix": 0.4,
+    "delayMix": 0.22,
+    "macro1": 0.5,
+    "lfo1Rate": 0.4,
+    "lfo1ToCutoff": 0.12,
+    "engine": 0.0
+  },
+  "mood": "cinematic",
+  "energy": 0.8,
+  "brightness": 0.25,
+  "warmth": 0.95,
+  "artworkSeed": 2291497405
+}

@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "name": "Ooh Cloud",
+  "category": "Vocal Synths",
+  "author": "Scorion Factory",
+  "engine": "Wavetable",
+  "engineIndex": 1,
+  "tags": [
+    "vocal",
+    "ooh",
+    "pop",
+    "epic"
+  ],
+  "genres": [
+    "pop",
+    "epic"
+  ],
+  "parameters": {
+    "masterGain": 0.72,
+    "filterCutoff": 4000,
+    "filterResonance": 0.25,
+    "ampAttack": 1.4,
+    "ampDecay": 0.3,
+    "ampSustain": 0.7,
+    "ampRelease": 2.8,
+    "filterEnvAmount": 0.35,
+    "pulseWidth": 0.5,
+    "unisonDetune": 0.18,
+    "unisonCount": 1,
+    "wtPosition": 0.45,
+    "fmRatio": 2.0,
+    "fmIndex": 1.6,
+    "grainPosition": 0.3,
+    "grainSize": 0.1,
+    "grainDensity": 0.45,
+    "reverbMix": 0.7,
+    "delayMix": 0.25,
+    "macro1": 0.5,
+    "lfo1Rate": 0.4,
+    "lfo1ToCutoff": 0.12,
+    "engine": 1.0
+  },
+  "mood": "vocal",
+  "energy": 0.5,
+  "brightness": 0.333,
+  "warmth": 0.975,
+  "artworkSeed": 2684352144
+}

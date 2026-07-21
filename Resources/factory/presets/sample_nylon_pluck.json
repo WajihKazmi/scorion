@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "name": "Sample Nylon Pluck",
+  "category": "Samples",
+  "author": "Scorion Factory",
+  "engine": "Sampler",
+  "engineIndex": 4,
+  "tags": [
+    "pluck",
+    "sample",
+    "pop",
+    "soul"
+  ],
+  "genres": [
+    "pop",
+    "soul"
+  ],
+  "parameters": {
+    "masterGain": 0.72,
+    "filterCutoff": 8000,
+    "filterResonance": 0.25,
+    "ampAttack": 0.001,
+    "ampDecay": 0.35,
+    "ampSustain": 0.05,
+    "ampRelease": 0.4,
+    "filterEnvAmount": 0.35,
+    "pulseWidth": 0.5,
+    "unisonDetune": 0.18,
+    "unisonCount": 1,
+    "wtPosition": 0.3,
+    "fmRatio": 2.0,
+    "fmIndex": 1.6,
+    "grainPosition": 0.3,
+    "grainSize": 0.1,
+    "grainDensity": 0.45,
+    "reverbMix": 0.25,
+    "delayMix": 0.15,
+    "macro1": 0.5,
+    "lfo1Rate": 0.4,
+    "lfo1ToCutoff": 0.12,
+    "engine": 4.0
+  },
+  "mood": "organic",
+  "energy": 0.45,
+  "brightness": 0.667,
+  "warmth": 0.663,
+  "artworkSeed": 1014114316
+}

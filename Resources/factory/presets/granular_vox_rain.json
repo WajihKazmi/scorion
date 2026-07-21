@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "name": "Granular Vox Rain",
+  "category": "Vocal Synths",
+  "author": "Scorion Factory",
+  "engine": "Granular",
+  "engineIndex": 3,
+  "tags": [
+    "vocal",
+    "grain",
+    "ambient",
+    "electronic"
+  ],
+  "genres": [
+    "ambient",
+    "electronic"
+  ],
+  "parameters": {
+    "masterGain": 0.72,
+    "filterCutoff": 3000,
+    "filterResonance": 0.25,
+    "ampAttack": 1.5,
+    "ampDecay": 0.3,
+    "ampSustain": 0.7,
+    "ampRelease": 0.45,
+    "filterEnvAmount": 0.35,
+    "pulseWidth": 0.5,
+    "unisonDetune": 0.18,
+    "unisonCount": 1,
+    "wtPosition": 0.3,
+    "fmRatio": 2.0,
+    "fmIndex": 1.6,
+    "grainPosition": 0.55,
+    "grainSize": 0.22,
+    "grainDensity": 0.8,
+    "reverbMix": 0.68,
+    "delayMix": 0.35,
+    "macro1": 0.5,
+    "lfo1Rate": 0.4,
+    "lfo1ToCutoff": 0.12,
+    "engine": 3.0
+  },
+  "mood": "haunting",
+  "energy": 0.5,
+  "brightness": 0.25,
+  "warmth": 1.0,
+  "artworkSeed": 3499499914
+}

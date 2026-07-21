@@ -1,0 +1,46 @@
+{
+  "schema": 1,
+  "name": "Afro Pop Sparkle",
+  "category": "Pop",
+  "author": "Scorion Factory",
+  "engine": "FM",
+  "engineIndex": 2,
+  "tags": [
+    "sparkle",
+    "afro",
+    "pop"
+  ],
+  "genres": [
+    "pop"
+  ],
+  "parameters": {
+    "masterGain": 0.72,
+    "filterCutoff": 5200,
+    "filterResonance": 0.25,
+    "ampAttack": 0.001,
+    "ampDecay": 0.4,
+    "ampSustain": 0.05,
+    "ampRelease": 0.5,
+    "filterEnvAmount": 0.35,
+    "pulseWidth": 0.5,
+    "unisonDetune": 0.18,
+    "unisonCount": 1,
+    "wtPosition": 0.3,
+    "fmRatio": 2.7,
+    "fmIndex": 2.8,
+    "grainPosition": 0.3,
+    "grainSize": 0.1,
+    "grainDensity": 0.45,
+    "reverbMix": 0.3,
+    "delayMix": 0.18,
+    "macro1": 0.5,
+    "lfo1Rate": 0.4,
+    "lfo1ToCutoff": 0.12,
+    "engine": 2.0
+  },
+  "mood": "bright",
+  "energy": 0.65,
+  "brightness": 0.433,
+  "warmth": 0.815,
+  "artworkSeed": 2401183931
+}

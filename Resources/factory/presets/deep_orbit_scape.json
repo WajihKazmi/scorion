@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "name": "Deep Orbit Scape",
+  "category": "Bells / Scapes",
+  "author": "Scorion Factory",
+  "engine": "Wavetable",
+  "engineIndex": 1,
+  "tags": [
+    "scape",
+    "space",
+    "epic",
+    "electronic"
+  ],
+  "genres": [
+    "epic",
+    "electronic"
+  ],
+  "parameters": {
+    "masterGain": 0.72,
+    "filterCutoff": 900,
+    "filterResonance": 0.25,
+    "ampAttack": 2.2,
+    "ampDecay": 0.3,
+    "ampSustain": 0.7,
+    "ampRelease": 3.5,
+    "filterEnvAmount": 0.35,
+    "pulseWidth": 0.5,
+    "unisonDetune": 0.18,
+    "unisonCount": 1,
+    "wtPosition": 0.2,
+    "fmRatio": 2.0,
+    "fmIndex": 1.6,
+    "grainPosition": 0.3,
+    "grainSize": 0.1,
+    "grainDensity": 0.45,
+    "reverbMix": 0.72,
+    "delayMix": 0.4,
+    "macro1": 0.5,
+    "lfo1Rate": 0.07,
+    "lfo1ToCutoff": 0.5,
+    "engine": 1.0
+  },
+  "mood": "crystalline",
+  "energy": 0.35,
+  "brightness": 0.075,
+  "warmth": 1.0,
+  "artworkSeed": 992301657
+}

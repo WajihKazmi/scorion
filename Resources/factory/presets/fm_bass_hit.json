@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "name": "FM Bass Hit",
+  "category": "Basses",
+  "author": "Scorion Factory",
+  "engine": "FM",
+  "engineIndex": 2,
+  "tags": [
+    "bass",
+    "fm",
+    "hiphop",
+    "electronic"
+  ],
+  "genres": [
+    "hiphop",
+    "electronic"
+  ],
+  "parameters": {
+    "masterGain": 0.72,
+    "filterCutoff": 900,
+    "filterResonance": 0.25,
+    "ampAttack": 0.001,
+    "ampDecay": 0.25,
+    "ampSustain": 0.3,
+    "ampRelease": 0.45,
+    "filterEnvAmount": 0.35,
+    "pulseWidth": 0.5,
+    "unisonDetune": 0.18,
+    "unisonCount": 1,
+    "wtPosition": 0.3,
+    "fmRatio": 1.0,
+    "fmIndex": 2.8,
+    "grainPosition": 0.3,
+    "grainSize": 0.1,
+    "grainDensity": 0.45,
+    "reverbMix": 0.08,
+    "delayMix": 0.12,
+    "macro1": 0.5,
+    "lfo1Rate": 0.4,
+    "lfo1ToCutoff": 0.12,
+    "engine": 2.0
+  },
+  "mood": "heavy",
+  "energy": 0.7,
+  "brightness": 0.075,
+  "warmth": 0.975,
+  "artworkSeed": 3463102451
+}

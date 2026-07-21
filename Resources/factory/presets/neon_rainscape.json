@@ -1,0 +1,50 @@
+{
+  "schema": 1,
+  "name": "Neon Rainscape",
+  "category": "Atmospheres",
+  "author": "Scorion Factory",
+  "engine": "Granular",
+  "engineIndex": 3,
+  "tags": [
+    "atmosphere",
+    "rain",
+    "neon"
+  ],
+  "genres": [
+    "ambient",
+    "electronic"
+  ],
+  "parameters": {
+    "masterGain": 0.72,
+    "filterCutoff": 2200,
+    "filterResonance": 0.35,
+    "ampAttack": 0.6,
+    "ampDecay": 0.3,
+    "ampSustain": 0.7,
+    "ampRelease": 1.4,
+    "filterEnvAmount": 0.35,
+    "pulseWidth": 0.45,
+    "unisonDetune": 0.18,
+    "unisonCount": 1,
+    "wtPosition": 0.35,
+    "fmRatio": 2.0,
+    "fmIndex": 1.6,
+    "grainPosition": 0.4,
+    "grainSize": 0.06,
+    "grainDensity": 0.9,
+    "reverbMix": 0.55,
+    "delayMix": 0.55,
+    "macro1": 0.5,
+    "macro2": 0.45,
+    "macro3": 0.5,
+    "macro4": 0.55,
+    "lfo1Rate": 0.5,
+    "lfo1ToCutoff": 0.2,
+    "engine": 3.0
+  },
+  "mood": "haunting",
+  "energy": 0.25,
+  "brightness": 0.183,
+  "warmth": 1.0,
+  "artworkSeed": 3721733484
+}

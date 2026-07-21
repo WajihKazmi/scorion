@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "name": "Talkbox Vibes",
+  "category": "Leads",
+  "author": "Scorion Factory",
+  "engine": "Wavetable",
+  "engineIndex": 1,
+  "tags": [
+    "lead",
+    "formant",
+    "rnb",
+    "funk"
+  ],
+  "genres": [
+    "rnb",
+    "funk"
+  ],
+  "parameters": {
+    "masterGain": 0.72,
+    "filterCutoff": 2800,
+    "filterResonance": 0.25,
+    "ampAttack": 0.02,
+    "ampDecay": 0.3,
+    "ampSustain": 0.7,
+    "ampRelease": 0.45,
+    "filterEnvAmount": 0.35,
+    "pulseWidth": 0.5,
+    "unisonDetune": 0.18,
+    "unisonCount": 1,
+    "wtPosition": 0.2,
+    "fmRatio": 2.0,
+    "fmIndex": 1.6,
+    "grainPosition": 0.3,
+    "grainSize": 0.1,
+    "grainDensity": 0.45,
+    "reverbMix": 0.3,
+    "delayMix": 0.15,
+    "macro1": 0.5,
+    "lfo1Rate": 2.0,
+    "lfo1ToCutoff": 0.25,
+    "engine": 1.0
+  },
+  "mood": "bright",
+  "energy": 0.75,
+  "brightness": 0.233,
+  "warmth": 0.935,
+  "artworkSeed": 1953085344
+}

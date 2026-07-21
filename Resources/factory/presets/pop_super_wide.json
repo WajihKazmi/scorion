@@ -1,0 +1,46 @@
+{
+  "schema": 1,
+  "name": "Pop Super Wide",
+  "category": "Pads",
+  "author": "Scorion Factory",
+  "engine": "Wavetable",
+  "engineIndex": 1,
+  "tags": [
+    "pad",
+    "wide",
+    "pop"
+  ],
+  "genres": [
+    "pop"
+  ],
+  "parameters": {
+    "masterGain": 0.72,
+    "filterCutoff": 4500,
+    "filterResonance": 0.25,
+    "ampAttack": 0.9,
+    "ampDecay": 0.3,
+    "ampSustain": 0.7,
+    "ampRelease": 1.8,
+    "filterEnvAmount": 0.35,
+    "pulseWidth": 0.5,
+    "unisonDetune": 0.25,
+    "unisonCount": 6,
+    "wtPosition": 0.5,
+    "fmRatio": 2.0,
+    "fmIndex": 1.6,
+    "grainPosition": 0.3,
+    "grainSize": 0.1,
+    "grainDensity": 0.45,
+    "reverbMix": 0.48,
+    "delayMix": 0.28,
+    "macro1": 0.5,
+    "lfo1Rate": 0.4,
+    "lfo1ToCutoff": 0.12,
+    "engine": 1.0
+  },
+  "mood": "ethereal",
+  "energy": 0.3,
+  "brightness": 0.375,
+  "warmth": 0.895,
+  "artworkSeed": 1157091449
+}

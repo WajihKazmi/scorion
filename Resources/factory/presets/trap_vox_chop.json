@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "name": "Trap Vox Chop",
+  "category": "Vocal Synths",
+  "author": "Scorion Factory",
+  "engine": "Sampler",
+  "engineIndex": 4,
+  "tags": [
+    "vocal",
+    "chop",
+    "trap",
+    "hiphop"
+  ],
+  "genres": [
+    "trap",
+    "hiphop"
+  ],
+  "parameters": {
+    "masterGain": 0.72,
+    "filterCutoff": 7000,
+    "filterResonance": 0.25,
+    "ampAttack": 0.001,
+    "ampDecay": 0.25,
+    "ampSustain": 0.0,
+    "ampRelease": 0.3,
+    "filterEnvAmount": 0.35,
+    "pulseWidth": 0.5,
+    "unisonDetune": 0.18,
+    "unisonCount": 1,
+    "wtPosition": 0.3,
+    "fmRatio": 2.0,
+    "fmIndex": 1.6,
+    "grainPosition": 0.3,
+    "grainSize": 0.1,
+    "grainDensity": 0.45,
+    "reverbMix": 0.28,
+    "delayMix": 0.2,
+    "macro1": 0.5,
+    "lfo1Rate": 0.4,
+    "lfo1ToCutoff": 0.12,
+    "engine": 4.0
+  },
+  "mood": "vocal",
+  "energy": 0.5,
+  "brightness": 0.583,
+  "warmth": 0.72,
+  "artworkSeed": 3685007686
+}

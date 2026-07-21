@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "name": "Ash Texture",
+  "category": "Dark Synths",
+  "author": "Scorion Factory",
+  "engine": "Granular",
+  "engineIndex": 3,
+  "tags": [
+    "dark",
+    "granular",
+    "cinematic",
+    "electronic"
+  ],
+  "genres": [
+    "cinematic",
+    "electronic"
+  ],
+  "parameters": {
+    "masterGain": 0.72,
+    "filterCutoff": 1800,
+    "filterResonance": 0.25,
+    "ampAttack": 0.8,
+    "ampDecay": 0.3,
+    "ampSustain": 0.7,
+    "ampRelease": 0.45,
+    "filterEnvAmount": 0.35,
+    "pulseWidth": 0.5,
+    "unisonDetune": 0.18,
+    "unisonCount": 1,
+    "wtPosition": 0.3,
+    "fmRatio": 2.0,
+    "fmIndex": 1.6,
+    "grainPosition": 0.6,
+    "grainSize": 0.12,
+    "grainDensity": 0.8,
+    "reverbMix": 0.6,
+    "delayMix": 0.25,
+    "macro1": 0.5,
+    "lfo1Rate": 0.4,
+    "lfo1ToCutoff": 0.12,
+    "engine": 3.0
+  },
+  "mood": "gothic",
+  "energy": 0.65,
+  "brightness": 0.083,
+  "warmth": 1.0,
+  "artworkSeed": 1599697419
+}

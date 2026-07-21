@@ -1,0 +1,50 @@
+{
+  "schema": 1,
+  "name": "Nightclub Pressure",
+  "category": "Basses",
+  "author": "Scorion Factory",
+  "engine": "Wavetable",
+  "engineIndex": 1,
+  "tags": [
+    "bass",
+    "club",
+    "dark"
+  ],
+  "genres": [
+    "electronic",
+    "techno"
+  ],
+  "parameters": {
+    "masterGain": 0.72,
+    "filterCutoff": 420,
+    "filterResonance": 0.35,
+    "ampAttack": 0.005,
+    "ampDecay": 0.3,
+    "ampSustain": 0.7,
+    "ampRelease": 0.45,
+    "filterEnvAmount": 0.4,
+    "pulseWidth": 0.45,
+    "unisonDetune": 0.22,
+    "unisonCount": 3,
+    "wtPosition": 0.25,
+    "fmRatio": 2.0,
+    "fmIndex": 1.6,
+    "grainPosition": 0.3,
+    "grainSize": 0.12,
+    "grainDensity": 0.45,
+    "reverbMix": 0.2,
+    "delayMix": 0.15,
+    "macro1": 0.5,
+    "macro2": 0.45,
+    "macro3": 0.5,
+    "macro4": 0.55,
+    "lfo1Rate": 0.3,
+    "lfo1ToCutoff": 0.18,
+    "engine": 1.0
+  },
+  "mood": "gothic",
+  "energy": 0.7,
+  "brightness": 0.028,
+  "warmth": 1.0,
+  "artworkSeed": 1618656401
+}

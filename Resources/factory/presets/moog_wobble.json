@@ -1,0 +1,49 @@
+{
+  "schema": 1,
+  "name": "Moog Wobble",
+  "category": "Moog Basses",
+  "author": "Scorion Factory",
+  "engine": "Virtual Analog",
+  "engineIndex": 0,
+  "tags": [
+    "bass",
+    "moog",
+    "wobble",
+    "electronic",
+    "trap"
+  ],
+  "genres": [
+    "electronic",
+    "trap"
+  ],
+  "parameters": {
+    "masterGain": 0.72,
+    "filterCutoff": 480,
+    "filterResonance": 0.7,
+    "ampAttack": 0.01,
+    "ampDecay": 0.3,
+    "ampSustain": 0.7,
+    "ampRelease": 0.45,
+    "filterEnvAmount": 0.3,
+    "pulseWidth": 0.5,
+    "unisonDetune": 0.18,
+    "unisonCount": 1,
+    "wtPosition": 0.3,
+    "fmRatio": 2.0,
+    "fmIndex": 1.6,
+    "grainPosition": 0.3,
+    "grainSize": 0.1,
+    "grainDensity": 0.45,
+    "reverbMix": 0.08,
+    "delayMix": 0.12,
+    "macro1": 0.5,
+    "lfo1Rate": 5.5,
+    "lfo1ToCutoff": 0.55,
+    "engine": 0.0
+  },
+  "mood": "warm",
+  "energy": 0.6,
+  "brightness": 0.05,
+  "warmth": 0.99,
+  "artworkSeed": 2552756664
+}

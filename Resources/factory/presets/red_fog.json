@@ -1,0 +1,50 @@
+{
+  "schema": 1,
+  "name": "Red Fog",
+  "category": "Atmospheres",
+  "author": "Scorion Factory",
+  "engine": "Wavetable",
+  "engineIndex": 1,
+  "tags": [
+    "atmosphere",
+    "pad",
+    "dark"
+  ],
+  "genres": [
+    "ambient",
+    "trap"
+  ],
+  "parameters": {
+    "masterGain": 0.72,
+    "filterCutoff": 700,
+    "filterResonance": 0.35,
+    "ampAttack": 1.5,
+    "ampDecay": 0.3,
+    "ampSustain": 0.7,
+    "ampRelease": 2.0,
+    "filterEnvAmount": 0.35,
+    "pulseWidth": 0.45,
+    "unisonDetune": 0.4,
+    "unisonCount": 4,
+    "wtPosition": 0.9,
+    "fmRatio": 2.0,
+    "fmIndex": 1.6,
+    "grainPosition": 0.3,
+    "grainSize": 0.12,
+    "grainDensity": 0.45,
+    "reverbMix": 0.68,
+    "delayMix": 0.38,
+    "macro1": 0.5,
+    "macro2": 0.45,
+    "macro3": 0.5,
+    "macro4": 0.55,
+    "lfo1Rate": 0.12,
+    "lfo1ToCutoff": 0.2,
+    "engine": 1.0
+  },
+  "mood": "gothic",
+  "energy": 0.25,
+  "brightness": 0.032,
+  "warmth": 1.0,
+  "artworkSeed": 2862763713
+}

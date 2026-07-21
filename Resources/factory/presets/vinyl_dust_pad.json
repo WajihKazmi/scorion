@@ -1,0 +1,47 @@
+{
+  "schema": 1,
+  "name": "Vinyl Dust Pad",
+  "category": "Hiphop",
+  "author": "Scorion Factory",
+  "engine": "Granular",
+  "engineIndex": 3,
+  "tags": [
+    "lofi",
+    "dust",
+    "hiphop"
+  ],
+  "genres": [
+    "hiphop",
+    "lofi"
+  ],
+  "parameters": {
+    "masterGain": 0.72,
+    "filterCutoff": 2000,
+    "filterResonance": 0.25,
+    "ampAttack": 0.8,
+    "ampDecay": 0.3,
+    "ampSustain": 0.7,
+    "ampRelease": 0.45,
+    "filterEnvAmount": 0.35,
+    "pulseWidth": 0.5,
+    "unisonDetune": 0.18,
+    "unisonCount": 1,
+    "wtPosition": 0.3,
+    "fmRatio": 2.0,
+    "fmIndex": 1.6,
+    "grainPosition": 0.3,
+    "grainSize": 0.1,
+    "grainDensity": 0.55,
+    "reverbMix": 0.45,
+    "delayMix": 0.12,
+    "macro1": 0.5,
+    "lfo1Rate": 0.4,
+    "lfo1ToCutoff": 0.12,
+    "engine": 3.0
+  },
+  "mood": "gritty",
+  "energy": 0.7,
+  "brightness": 0.167,
+  "warmth": 1.0,
+  "artworkSeed": 466009213
+}

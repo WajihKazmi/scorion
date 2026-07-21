@@ -1,0 +1,50 @@
+{
+  "schema": 1,
+  "name": "Granular Dirt Bass",
+  "category": "Basses",
+  "author": "Scorion Factory",
+  "engine": "Granular",
+  "engineIndex": 3,
+  "tags": [
+    "bass",
+    "granular",
+    "grit"
+  ],
+  "genres": [
+    "experimental",
+    "trap"
+  ],
+  "parameters": {
+    "masterGain": 0.72,
+    "filterCutoff": 550,
+    "filterResonance": 0.35,
+    "ampAttack": 0.03,
+    "ampDecay": 0.3,
+    "ampSustain": 0.7,
+    "ampRelease": 0.45,
+    "filterEnvAmount": 0.35,
+    "pulseWidth": 0.45,
+    "unisonDetune": 0.18,
+    "unisonCount": 1,
+    "wtPosition": 0.35,
+    "fmRatio": 2.0,
+    "fmIndex": 1.6,
+    "grainPosition": 0.2,
+    "grainSize": 0.2,
+    "grainDensity": 0.55,
+    "reverbMix": 0.2,
+    "delayMix": 0.15,
+    "macro1": 0.5,
+    "macro2": 0.45,
+    "macro3": 0.5,
+    "macro4": 0.55,
+    "lfo1Rate": 0.4,
+    "lfo1ToCutoff": 0.2,
+    "engine": 3.0
+  },
+  "mood": "heavy",
+  "energy": 0.7,
+  "brightness": 0.05,
+  "warmth": 1.0,
+  "artworkSeed": 2263426426
+}

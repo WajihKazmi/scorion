@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "name": "Portamento Cream",
+  "category": "Leads",
+  "author": "Scorion Factory",
+  "engine": "Virtual Analog",
+  "engineIndex": 0,
+  "tags": [
+    "lead",
+    "analog",
+    "rnb",
+    "pop"
+  ],
+  "genres": [
+    "rnb",
+    "pop"
+  ],
+  "parameters": {
+    "masterGain": 0.72,
+    "filterCutoff": 3000,
+    "filterResonance": 0.25,
+    "ampAttack": 0.04,
+    "ampDecay": 0.3,
+    "ampSustain": 0.7,
+    "ampRelease": 0.8,
+    "filterEnvAmount": 0.35,
+    "pulseWidth": 0.5,
+    "unisonDetune": 0.12,
+    "unisonCount": 3,
+    "wtPosition": 0.3,
+    "fmRatio": 2.0,
+    "fmIndex": 1.6,
+    "grainPosition": 0.3,
+    "grainSize": 0.1,
+    "grainDensity": 0.45,
+    "reverbMix": 0.28,
+    "delayMix": 0.12,
+    "macro1": 0.5,
+    "lfo1Rate": 0.4,
+    "lfo1ToCutoff": 0.12,
+    "engine": 0.0
+  },
+  "mood": "bright",
+  "energy": 0.75,
+  "brightness": 0.25,
+  "warmth": 0.92,
+  "artworkSeed": 3382183492
+}

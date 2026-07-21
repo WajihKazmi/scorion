@@ -1,0 +1,46 @@
+{
+  "schema": 1,
+  "name": "Boom Bap Keys",
+  "category": "Hiphop",
+  "author": "Scorion Factory",
+  "engine": "Sampler",
+  "engineIndex": 4,
+  "tags": [
+    "keys",
+    "boom",
+    "hiphop"
+  ],
+  "genres": [
+    "hiphop"
+  ],
+  "parameters": {
+    "masterGain": 0.72,
+    "filterCutoff": 4500,
+    "filterResonance": 0.25,
+    "ampAttack": 0.003,
+    "ampDecay": 0.4,
+    "ampSustain": 0.2,
+    "ampRelease": 0.5,
+    "filterEnvAmount": 0.35,
+    "pulseWidth": 0.5,
+    "unisonDetune": 0.18,
+    "unisonCount": 1,
+    "wtPosition": 0.3,
+    "fmRatio": 2.0,
+    "fmIndex": 1.6,
+    "grainPosition": 0.3,
+    "grainSize": 0.1,
+    "grainDensity": 0.45,
+    "reverbMix": 0.28,
+    "delayMix": 0.1,
+    "macro1": 0.5,
+    "lfo1Rate": 0.4,
+    "lfo1ToCutoff": 0.12,
+    "engine": 4.0
+  },
+  "mood": "gritty",
+  "energy": 0.7,
+  "brightness": 0.375,
+  "warmth": 0.845,
+  "artworkSeed": 1264862855
+}

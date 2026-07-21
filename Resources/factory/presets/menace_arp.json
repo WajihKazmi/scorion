@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "name": "Menace Arp",
+  "category": "Dark Synths",
+  "author": "Scorion Factory",
+  "engine": "Virtual Analog",
+  "engineIndex": 0,
+  "tags": [
+    "dark",
+    "arp",
+    "trap",
+    "electronic"
+  ],
+  "genres": [
+    "trap",
+    "electronic"
+  ],
+  "parameters": {
+    "masterGain": 0.72,
+    "filterCutoff": 3200,
+    "filterResonance": 0.25,
+    "ampAttack": 0.001,
+    "ampDecay": 0.2,
+    "ampSustain": 0.1,
+    "ampRelease": 0.25,
+    "filterEnvAmount": 0.7,
+    "pulseWidth": 0.5,
+    "unisonDetune": 0.18,
+    "unisonCount": 1,
+    "wtPosition": 0.3,
+    "fmRatio": 2.0,
+    "fmIndex": 1.6,
+    "grainPosition": 0.3,
+    "grainSize": 0.1,
+    "grainDensity": 0.45,
+    "reverbMix": 0.2,
+    "delayMix": 0.3,
+    "macro1": 0.5,
+    "lfo1Rate": 0.4,
+    "lfo1ToCutoff": 0.12,
+    "engine": 0.0
+  },
+  "mood": "gothic",
+  "energy": 0.65,
+  "brightness": 0.147,
+  "warmth": 1.0,
+  "artworkSeed": 2481638202
+}

@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "name": "Future Bounce",
+  "category": "Leads",
+  "author": "Scorion Factory",
+  "engine": "Wavetable",
+  "engineIndex": 1,
+  "tags": [
+    "lead",
+    "bouncy",
+    "pop",
+    "hiphop"
+  ],
+  "genres": [
+    "pop",
+    "hiphop"
+  ],
+  "parameters": {
+    "masterGain": 0.72,
+    "filterCutoff": 6000,
+    "filterResonance": 0.25,
+    "ampAttack": 0.005,
+    "ampDecay": 0.25,
+    "ampSustain": 0.4,
+    "ampRelease": 0.45,
+    "filterEnvAmount": 0.35,
+    "pulseWidth": 0.5,
+    "unisonDetune": 0.18,
+    "unisonCount": 1,
+    "wtPosition": 0.55,
+    "fmRatio": 2.0,
+    "fmIndex": 1.6,
+    "grainPosition": 0.3,
+    "grainSize": 0.1,
+    "grainDensity": 0.45,
+    "reverbMix": 0.22,
+    "delayMix": 0.3,
+    "macro1": 0.5,
+    "lfo1Rate": 0.4,
+    "lfo1ToCutoff": 0.12,
+    "engine": 1.0
+  },
+  "mood": "bright",
+  "energy": 0.75,
+  "brightness": 0.5,
+  "warmth": 0.755,
+  "artworkSeed": 4055973744
+}

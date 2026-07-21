@@ -1,0 +1,50 @@
+{
+  "schema": 1,
+  "name": "Void Sub",
+  "category": "Basses",
+  "author": "Scorion Factory",
+  "engine": "Virtual Analog",
+  "engineIndex": 0,
+  "tags": [
+    "bass",
+    "sub",
+    "dark"
+  ],
+  "genres": [
+    "trap",
+    "electronic"
+  ],
+  "parameters": {
+    "masterGain": 0.72,
+    "filterCutoff": 280,
+    "filterResonance": 0.25,
+    "ampAttack": 0.005,
+    "ampDecay": 0.3,
+    "ampSustain": 1.0,
+    "ampRelease": 0.35,
+    "filterEnvAmount": 0.35,
+    "pulseWidth": 0.45,
+    "unisonDetune": 0.18,
+    "unisonCount": 1,
+    "wtPosition": 0.35,
+    "fmRatio": 2.0,
+    "fmIndex": 1.6,
+    "grainPosition": 0.3,
+    "grainSize": 0.12,
+    "grainDensity": 0.45,
+    "reverbMix": 0.05,
+    "delayMix": 0.0,
+    "macro1": 0.5,
+    "macro2": 0.45,
+    "macro3": 0.5,
+    "macro4": 0.55,
+    "lfo1Rate": 0.4,
+    "lfo1ToCutoff": 0.05,
+    "engine": 0.0
+  },
+  "mood": "gothic",
+  "energy": 0.7,
+  "brightness": 0.028,
+  "warmth": 1.0,
+  "artworkSeed": 2674522535
+}

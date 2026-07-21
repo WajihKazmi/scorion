@@ -1,0 +1,47 @@
+{
+  "schema": 1,
+  "name": "Trap Pluck",
+  "category": "Hiphop",
+  "author": "Scorion Factory",
+  "engine": "FM",
+  "engineIndex": 2,
+  "tags": [
+    "pluck",
+    "trap",
+    "hiphop"
+  ],
+  "genres": [
+    "trap",
+    "hiphop"
+  ],
+  "parameters": {
+    "masterGain": 0.72,
+    "filterCutoff": 5200,
+    "filterResonance": 0.25,
+    "ampAttack": 0.001,
+    "ampDecay": 0.28,
+    "ampSustain": 0.0,
+    "ampRelease": 0.35,
+    "filterEnvAmount": 0.35,
+    "pulseWidth": 0.5,
+    "unisonDetune": 0.18,
+    "unisonCount": 1,
+    "wtPosition": 0.3,
+    "fmRatio": 2.8,
+    "fmIndex": 3.2,
+    "grainPosition": 0.3,
+    "grainSize": 0.1,
+    "grainDensity": 0.45,
+    "reverbMix": 0.25,
+    "delayMix": 0.22,
+    "macro1": 0.5,
+    "lfo1Rate": 0.4,
+    "lfo1ToCutoff": 0.12,
+    "engine": 2.0
+  },
+  "mood": "gritty",
+  "energy": 0.7,
+  "brightness": 0.433,
+  "warmth": 0.802,
+  "artworkSeed": 2517780873
+}

@@ -1,0 +1,50 @@
+{
+  "schema": 1,
+  "name": "Neon Coffin",
+  "category": "Dark Synths",
+  "author": "Scorion Factory",
+  "engine": "Wavetable",
+  "engineIndex": 1,
+  "tags": [
+    "dark",
+    "neon",
+    "pad"
+  ],
+  "genres": [
+    "electronic",
+    "rnb"
+  ],
+  "parameters": {
+    "masterGain": 0.72,
+    "filterCutoff": 800,
+    "filterResonance": 0.35,
+    "ampAttack": 0.5,
+    "ampDecay": 0.3,
+    "ampSustain": 0.7,
+    "ampRelease": 1.1,
+    "filterEnvAmount": 0.35,
+    "pulseWidth": 0.45,
+    "unisonDetune": 0.18,
+    "unisonCount": 3,
+    "wtPosition": 0.85,
+    "fmRatio": 2.0,
+    "fmIndex": 1.6,
+    "grainPosition": 0.3,
+    "grainSize": 0.12,
+    "grainDensity": 0.45,
+    "reverbMix": 0.5,
+    "delayMix": 0.4,
+    "macro1": 0.5,
+    "macro2": 0.45,
+    "macro3": 0.5,
+    "macro4": 0.55,
+    "lfo1Rate": 0.25,
+    "lfo1ToCutoff": 0.35,
+    "engine": 1.0
+  },
+  "mood": "gothic",
+  "energy": 0.65,
+  "brightness": 0.037,
+  "warmth": 1.0,
+  "artworkSeed": 3727218313
+}

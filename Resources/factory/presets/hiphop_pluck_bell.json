@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "name": "Hiphop Pluck Bell",
+  "category": "Bells / Scapes",
+  "author": "Scorion Factory",
+  "engine": "FM",
+  "engineIndex": 2,
+  "tags": [
+    "bell",
+    "pluck",
+    "hiphop",
+    "trap"
+  ],
+  "genres": [
+    "hiphop",
+    "trap"
+  ],
+  "parameters": {
+    "masterGain": 0.72,
+    "filterCutoff": 5200,
+    "filterResonance": 0.25,
+    "ampAttack": 0.001,
+    "ampDecay": 0.35,
+    "ampSustain": 0.0,
+    "ampRelease": 0.5,
+    "filterEnvAmount": 0.35,
+    "pulseWidth": 0.5,
+    "unisonDetune": 0.18,
+    "unisonCount": 1,
+    "wtPosition": 0.3,
+    "fmRatio": 3.0,
+    "fmIndex": 3.5,
+    "grainPosition": 0.3,
+    "grainSize": 0.1,
+    "grainDensity": 0.45,
+    "reverbMix": 0.3,
+    "delayMix": 0.2,
+    "macro1": 0.5,
+    "lfo1Rate": 0.4,
+    "lfo1ToCutoff": 0.12,
+    "engine": 2.0
+  },
+  "mood": "crystalline",
+  "energy": 0.35,
+  "brightness": 0.433,
+  "warmth": 0.815,
+  "artworkSeed": 3446631919
+}

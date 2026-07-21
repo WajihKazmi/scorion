@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "name": "808 Soft Sub",
+  "category": "Basses",
+  "author": "Scorion Factory",
+  "engine": "Virtual Analog",
+  "engineIndex": 0,
+  "tags": [
+    "bass",
+    "808",
+    "hiphop",
+    "trap"
+  ],
+  "genres": [
+    "hiphop",
+    "trap"
+  ],
+  "parameters": {
+    "masterGain": 0.72,
+    "filterCutoff": 180,
+    "filterResonance": 0.35,
+    "ampAttack": 0.001,
+    "ampDecay": 0.5,
+    "ampSustain": 0.2,
+    "ampRelease": 0.6,
+    "filterEnvAmount": 0.35,
+    "pulseWidth": 0.5,
+    "unisonDetune": 0.18,
+    "unisonCount": 1,
+    "wtPosition": 0.3,
+    "fmRatio": 2.0,
+    "fmIndex": 1.6,
+    "grainPosition": 0.3,
+    "grainSize": 0.1,
+    "grainDensity": 0.45,
+    "reverbMix": 0.0,
+    "delayMix": 0.0,
+    "macro1": 0.5,
+    "lfo1Rate": 0.4,
+    "lfo1ToCutoff": 0.12,
+    "engine": 0.0
+  },
+  "mood": "heavy",
+  "energy": 0.7,
+  "brightness": 0.05,
+  "warmth": 0.97,
+  "artworkSeed": 3885424214
+}

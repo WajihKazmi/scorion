@@ -1,0 +1,596 @@
+{
+  "schema": 1,
+  "count": 118,
+  "features": [
+    {
+      "group": "Engines",
+      "title": "Sixteen-voice polyphony with steal",
+      "blurb": "Sixteen-voice polyphony with steal"
+    },
+    {
+      "group": "Filters",
+      "title": "Virtual Analog PolyBLEP oscillators",
+      "blurb": "Virtual Analog PolyBLEP oscillators"
+    },
+    {
+      "group": "Modulation",
+      "title": "Mipmapped wavetable engine",
+      "blurb": "Mipmapped wavetable engine"
+    },
+    {
+      "group": "FX",
+      "title": "FM engine",
+      "blurb": "FM engine"
+    },
+    {
+      "group": "MIDI",
+      "title": "Granular cloud engine",
+      "blurb": "Granular cloud engine"
+    },
+    {
+      "group": "UI Hub",
+      "title": "Sampler hermite engine",
+      "blurb": "Sampler hermite engine"
+    },
+    {
+      "group": "Content",
+      "title": "Dual TPT SVF filter",
+      "blurb": "Dual TPT SVF filter"
+    },
+    {
+      "group": "Performance",
+      "title": "Moog ladder filter",
+      "blurb": "Moog ladder filter"
+    },
+    {
+      "group": "Workflow",
+      "title": "Bipolar filter envelope",
+      "blurb": "Bipolar filter envelope"
+    },
+    {
+      "group": "Pro",
+      "title": "Amp ADSR smooth curves",
+      "blurb": "Amp ADSR smooth curves"
+    },
+    {
+      "group": "Engines",
+      "title": "LFO1 to cutoff",
+      "blurb": "LFO1 to cutoff"
+    },
+    {
+      "group": "Filters",
+      "title": "Macro 1 control",
+      "blurb": "Macro 1 control"
+    },
+    {
+      "group": "Modulation",
+      "title": "Unison up to 8",
+      "blurb": "Unison up to 8"
+    },
+    {
+      "group": "FX",
+      "title": "Unison detune",
+      "blurb": "Unison detune"
+    },
+    {
+      "group": "MIDI",
+      "title": "Pulse-width morph",
+      "blurb": "Pulse-width morph"
+    },
+    {
+      "group": "UI Hub",
+      "title": "WT position morph",
+      "blurb": "WT position morph"
+    },
+    {
+      "group": "Content",
+      "title": "FM ratio and index",
+      "blurb": "FM ratio and index"
+    },
+    {
+      "group": "Performance",
+      "title": "Grain trio controls",
+      "blurb": "Grain trio controls"
+    },
+    {
+      "group": "Workflow",
+      "title": "Chorus FX",
+      "blurb": "Chorus FX"
+    },
+    {
+      "group": "Pro",
+      "title": "Stereo delay HP",
+      "blurb": "Stereo delay HP"
+    },
+    {
+      "group": "Engines",
+      "title": "8-line FDN reverb",
+      "blurb": "8-line FDN reverb"
+    },
+    {
+      "group": "Filters",
+      "title": "Saturator 2x OS",
+      "blurb": "Saturator 2x OS"
+    },
+    {
+      "group": "Modulation",
+      "title": "EQ tilt character",
+      "blurb": "EQ tilt character"
+    },
+    {
+      "group": "FX",
+      "title": "Output limiter",
+      "blurb": "Output limiter"
+    },
+    {
+      "group": "MIDI",
+      "title": "MPE expression",
+      "blurb": "MPE expression"
+    },
+    {
+      "group": "UI Hub",
+      "title": "MIDI learn",
+      "blurb": "MIDI learn"
+    },
+    {
+      "group": "Content",
+      "title": "Modulation matrix",
+      "blurb": "Modulation matrix"
+    },
+    {
+      "group": "Performance",
+      "title": "Warm Balanced Open",
+      "blurb": "Warm Balanced Open"
+    },
+    {
+      "group": "Workflow",
+      "title": "On-screen piano",
+      "blurb": "On-screen piano"
+    },
+    {
+      "group": "Pro",
+      "title": "Computer keys A-K",
+      "blurb": "Computer keys A-K"
+    },
+    {
+      "group": "Engines",
+      "title": "Live spectrum",
+      "blurb": "Live spectrum"
+    },
+    {
+      "group": "Filters",
+      "title": "Wavetable pad viz",
+      "blurb": "Wavetable pad viz"
+    },
+    {
+      "group": "Modulation",
+      "title": "LED meter LUFS",
+      "blurb": "LED meter LUFS"
+    },
+    {
+      "group": "FX",
+      "title": "Energy UI bloom",
+      "blurb": "Energy UI bloom"
+    },
+    {
+      "group": "MIDI",
+      "title": "Aurora backdrop",
+      "blurb": "Aurora backdrop"
+    },
+    {
+      "group": "UI Hub",
+      "title": "Hub navigation",
+      "blurb": "Hub navigation"
+    },
+    {
+      "group": "Content",
+      "title": "Perform page",
+      "blurb": "Perform page"
+    },
+    {
+      "group": "Performance",
+      "title": "Design page",
+      "blurb": "Design page"
+    },
+    {
+      "group": "Workflow",
+      "title": "Vocals browser",
+      "blurb": "Vocals browser"
+    },
+    {
+      "group": "Pro",
+      "title": "Samples browser",
+      "blurb": "Samples browser"
+    },
+    {
+      "group": "Engines",
+      "title": "Library filter",
+      "blurb": "Library filter"
+    },
+    {
+      "group": "Filters",
+      "title": "Feature hub 100+",
+      "blurb": "Feature hub 100+"
+    },
+    {
+      "group": "Modulation",
+      "title": "Theme Midnight",
+      "blurb": "Theme Midnight"
+    },
+    {
+      "group": "FX",
+      "title": "Theme Studio",
+      "blurb": "Theme Studio"
+    },
+    {
+      "group": "MIDI",
+      "title": "Theme Aurora",
+      "blurb": "Theme Aurora"
+    },
+    {
+      "group": "UI Hub",
+      "title": "Glass panels",
+      "blurb": "Glass panels"
+    },
+    {
+      "group": "Content",
+      "title": "Smooth rotary arcs",
+      "blurb": "Smooth rotary arcs"
+    },
+    {
+      "group": "Performance",
+      "title": "Pill switches",
+      "blurb": "Pill switches"
+    },
+    {
+      "group": "Workflow",
+      "title": "Factory wavetables",
+      "blurb": "Factory wavetables"
+    },
+    {
+      "group": "Pro",
+      "title": "Vocal formants",
+      "blurb": "Vocal formants"
+    },
+    {
+      "group": "Engines",
+      "title": "Choir AH table",
+      "blurb": "Choir AH table"
+    },
+    {
+      "group": "Filters",
+      "title": "Talk box table",
+      "blurb": "Talk box table"
+    },
+    {
+      "group": "Modulation",
+      "title": "Vocal pad table",
+      "blurb": "Vocal pad table"
+    },
+    {
+      "group": "FX",
+      "title": "Ooh vox table",
+      "blurb": "Ooh vox table"
+    },
+    {
+      "group": "MIDI",
+      "title": "Sample lab",
+      "blurb": "Sample lab"
+    },
+    {
+      "group": "UI Hub",
+      "title": "Vocal AH loop",
+      "blurb": "Vocal AH loop"
+    },
+    {
+      "group": "Content",
+      "title": "Vocal OOH pad",
+      "blurb": "Vocal OOH pad"
+    },
+    {
+      "group": "Performance",
+      "title": "Vocal chop",
+      "blurb": "Vocal chop"
+    },
+    {
+      "group": "Workflow",
+      "title": "Breath texture",
+      "blurb": "Breath texture"
+    },
+    {
+      "group": "Pro",
+      "title": "Soft EP sample",
+      "blurb": "Soft EP sample"
+    },
+    {
+      "group": "Engines",
+      "title": "Nylon pluck",
+      "blurb": "Nylon pluck"
+    },
+    {
+      "group": "Filters",
+      "title": "Sub hit",
+      "blurb": "Sub hit"
+    },
+    {
+      "group": "Modulation",
+      "title": "Soft snare",
+      "blurb": "Soft snare"
+    },
+    {
+      "group": "FX",
+      "title": "Air riser",
+      "blurb": "Air riser"
+    },
+    {
+      "group": "MIDI",
+      "title": "Choir swell",
+      "blurb": "Choir swell"
+    },
+    {
+      "group": "UI Hub",
+      "title": "100+ presets",
+      "blurb": "100+ presets"
+    },
+    {
+      "group": "Content",
+      "title": "Vocal preset pack",
+      "blurb": "Vocal preset pack"
+    },
+    {
+      "group": "Performance",
+      "title": "Hiphop RnB Soul",
+      "blurb": "Hiphop RnB Soul"
+    },
+    {
+      "group": "Workflow",
+      "title": "Pop Epic packs",
+      "blurb": "Pop Epic packs"
+    },
+    {
+      "group": "Pro",
+      "title": "Moog bass pack",
+      "blurb": "Moog bass pack"
+    },
+    {
+      "group": "Engines",
+      "title": "Bells scapes",
+      "blurb": "Bells scapes"
+    },
+    {
+      "group": "Filters",
+      "title": "Dark synths",
+      "blurb": "Dark synths"
+    },
+    {
+      "group": "Modulation",
+      "title": "Panic",
+      "blurb": "Panic"
+    },
+    {
+      "group": "FX",
+      "title": "Bypass",
+      "blurb": "Bypass"
+    },
+    {
+      "group": "MIDI",
+      "title": "Preset browse",
+      "blurb": "Preset browse"
+    },
+    {
+      "group": "UI Hub",
+      "title": "User save",
+      "blurb": "User save"
+    },
+    {
+      "group": "Content",
+      "title": "JSON schema",
+      "blurb": "JSON schema"
+    },
+    {
+      "group": "Performance",
+      "title": "VST3 bundle",
+      "blurb": "VST3 bundle"
+    },
+    {
+      "group": "Workflow",
+      "title": "AU bundle",
+      "blurb": "AU bundle"
+    },
+    {
+      "group": "Pro",
+      "title": "Standalone",
+      "blurb": "Standalone"
+    },
+    {
+      "group": "Engines",
+      "title": "Resource paths",
+      "blurb": "Resource paths"
+    },
+    {
+      "group": "Filters",
+      "title": "Asset loader",
+      "blurb": "Asset loader"
+    },
+    {
+      "group": "Modulation",
+      "title": "SPSC queue",
+      "blurb": "SPSC queue"
+    },
+    {
+      "group": "FX",
+      "title": "Param bridge",
+      "blurb": "Param bridge"
+    },
+    {
+      "group": "MIDI",
+      "title": "Oversampled FX",
+      "blurb": "Oversampled FX"
+    },
+    {
+      "group": "UI Hub",
+      "title": "Stereo field",
+      "blurb": "Stereo field"
+    },
+    {
+      "group": "Content",
+      "title": "Hero Amount",
+      "blurb": "Hero Amount"
+    },
+    {
+      "group": "Performance",
+      "title": "Page fades",
+      "blurb": "Page fades"
+    },
+    {
+      "group": "Workflow",
+      "title": "Nav hover",
+      "blurb": "Nav hover"
+    },
+    {
+      "group": "Pro",
+      "title": "Energy underline",
+      "blurb": "Energy underline"
+    },
+    {
+      "group": "Engines",
+      "title": "Piano glow",
+      "blurb": "Piano glow"
+    },
+    {
+      "group": "Filters",
+      "title": "Scope shimmer",
+      "blurb": "Scope shimmer"
+    },
+    {
+      "group": "Modulation",
+      "title": "Peak ribbon",
+      "blurb": "Peak ribbon"
+    },
+    {
+      "group": "FX",
+      "title": "Vocal category",
+      "blurb": "Vocal category"
+    },
+    {
+      "group": "MIDI",
+      "title": "Samples category",
+      "blurb": "Samples category"
+    },
+    {
+      "group": "UI Hub",
+      "title": "Hot-swap sample",
+      "blurb": "Hot-swap sample"
+    },
+    {
+      "group": "Content",
+      "title": "Hot-swap wavetable",
+      "blurb": "Hot-swap wavetable"
+    },
+    {
+      "group": "Performance",
+      "title": "Deep design knobs",
+      "blurb": "Deep design knobs"
+    },
+    {
+      "group": "Workflow",
+      "title": "Filter env page",
+      "blurb": "Filter env page"
+    },
+    {
+      "group": "Pro",
+      "title": "Grain design",
+      "blurb": "Grain design"
+    },
+    {
+      "group": "Engines",
+      "title": "FM design",
+      "blurb": "FM design"
+    },
+    {
+      "group": "Filters",
+      "title": "Macro design",
+      "blurb": "Macro design"
+    },
+    {
+      "group": "Modulation",
+      "title": "Decay sustain",
+      "blurb": "Decay sustain"
+    },
+    {
+      "group": "FX",
+      "title": "Detune design",
+      "blurb": "Detune design"
+    },
+    {
+      "group": "MIDI",
+      "title": "Cinema OLED",
+      "blurb": "Cinema OLED"
+    },
+    {
+      "group": "UI Hub",
+      "title": "Cyan accent",
+      "blurb": "Cyan accent"
+    },
+    {
+      "group": "Content",
+      "title": "Play green CTA",
+      "blurb": "Play green CTA"
+    },
+    {
+      "group": "Performance",
+      "title": "Reduced motion",
+      "blurb": "Reduced motion"
+    },
+    {
+      "group": "Workflow",
+      "title": "Keyboard focus",
+      "blurb": "Keyboard focus"
+    },
+    {
+      "group": "Pro",
+      "title": "Resizable UI",
+      "blurb": "Resizable UI"
+    },
+    {
+      "group": "Engines",
+      "title": "Catch2 tests",
+      "blurb": "Catch2 tests"
+    },
+    {
+      "group": "Filters",
+      "title": "Hub workflow",
+      "blurb": "Hub workflow"
+    },
+    {
+      "group": "Modulation",
+      "title": "Live browsers",
+      "blurb": "Live browsers"
+    },
+    {
+      "group": "FX",
+      "title": "features.json catalog",
+      "blurb": "features.json catalog"
+    },
+    {
+      "group": "MIDI",
+      "title": "Sound design hub",
+      "blurb": "Sound design hub"
+    },
+    {
+      "group": "UI Hub",
+      "title": "Flagship chrome",
+      "blurb": "Flagship chrome"
+    },
+    {
+      "group": "Content",
+      "title": "Animated gradients",
+      "blurb": "Animated gradients"
+    },
+    {
+      "group": "Performance",
+      "title": "Smooth curves UI",
+      "blurb": "Smooth curves UI"
+    }
+  ]
+}

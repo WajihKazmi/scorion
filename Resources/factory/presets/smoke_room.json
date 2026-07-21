@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "name": "Smoke Room",
+  "category": "Pads",
+  "author": "Scorion Factory",
+  "engine": "Virtual Analog",
+  "engineIndex": 0,
+  "tags": [
+    "pad",
+    "dark",
+    "rnb",
+    "hiphop"
+  ],
+  "genres": [
+    "rnb",
+    "hiphop"
+  ],
+  "parameters": {
+    "masterGain": 0.72,
+    "filterCutoff": 1200,
+    "filterResonance": 0.3,
+    "ampAttack": 1.8,
+    "ampDecay": 0.3,
+    "ampSustain": 0.7,
+    "ampRelease": 2.5,
+    "filterEnvAmount": 0.35,
+    "pulseWidth": 0.5,
+    "unisonDetune": 0.18,
+    "unisonCount": 1,
+    "wtPosition": 0.3,
+    "fmRatio": 2.0,
+    "fmIndex": 1.6,
+    "grainPosition": 0.3,
+    "grainSize": 0.1,
+    "grainDensity": 0.45,
+    "reverbMix": 0.55,
+    "delayMix": 0.12,
+    "macro1": 0.5,
+    "lfo1Rate": 0.2,
+    "lfo1ToCutoff": 0.12,
+    "engine": 0.0
+  },
+  "mood": "gothic",
+  "energy": 0.3,
+  "brightness": 0.055,
+  "warmth": 1.0,
+  "artworkSeed": 1694396638
+}

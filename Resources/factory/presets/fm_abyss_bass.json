@@ -1,0 +1,50 @@
+{
+  "schema": 1,
+  "name": "FM Abyss Bass",
+  "category": "Basses",
+  "author": "Scorion Factory",
+  "engine": "FM",
+  "engineIndex": 2,
+  "tags": [
+    "bass",
+    "fm",
+    "dark"
+  ],
+  "genres": [
+    "electronic",
+    "dnb"
+  ],
+  "parameters": {
+    "masterGain": 0.72,
+    "filterCutoff": 700,
+    "filterResonance": 0.35,
+    "ampAttack": 0.01,
+    "ampDecay": 0.3,
+    "ampSustain": 0.8,
+    "ampRelease": 0.45,
+    "filterEnvAmount": 0.35,
+    "pulseWidth": 0.45,
+    "unisonDetune": 0.18,
+    "unisonCount": 1,
+    "wtPosition": 0.35,
+    "fmRatio": 1.0,
+    "fmIndex": 2.8,
+    "grainPosition": 0.3,
+    "grainSize": 0.12,
+    "grainDensity": 0.45,
+    "reverbMix": 0.12,
+    "delayMix": 0.08,
+    "macro1": 0.5,
+    "macro2": 0.45,
+    "macro3": 0.5,
+    "macro4": 0.55,
+    "lfo1Rate": 0.8,
+    "lfo1ToCutoff": 0.22,
+    "engine": 2.0
+  },
+  "mood": "gothic",
+  "energy": 0.7,
+  "brightness": 0.032,
+  "warmth": 1.0,
+  "artworkSeed": 3392683211
+}

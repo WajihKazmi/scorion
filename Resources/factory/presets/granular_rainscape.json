@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "name": "Granular Rainscape",
+  "category": "Bells / Scapes",
+  "author": "Scorion Factory",
+  "engine": "Granular",
+  "engineIndex": 3,
+  "tags": [
+    "scape",
+    "rain",
+    "cinematic",
+    "ambient"
+  ],
+  "genres": [
+    "cinematic",
+    "ambient"
+  ],
+  "parameters": {
+    "masterGain": 0.72,
+    "filterCutoff": 4200,
+    "filterResonance": 0.25,
+    "ampAttack": 1.4,
+    "ampDecay": 0.3,
+    "ampSustain": 0.7,
+    "ampRelease": 2.8,
+    "filterEnvAmount": 0.35,
+    "pulseWidth": 0.5,
+    "unisonDetune": 0.18,
+    "unisonCount": 1,
+    "wtPosition": 0.3,
+    "fmRatio": 2.0,
+    "fmIndex": 1.6,
+    "grainPosition": 0.45,
+    "grainSize": 0.18,
+    "grainDensity": 0.85,
+    "reverbMix": 0.7,
+    "delayMix": 0.35,
+    "macro1": 0.5,
+    "lfo1Rate": 0.4,
+    "lfo1ToCutoff": 0.12,
+    "engine": 3.0
+  },
+  "mood": "haunting",
+  "energy": 0.35,
+  "brightness": 0.35,
+  "warmth": 0.965,
+  "artworkSeed": 3105370366
+}

@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "name": "Triumph Bells",
+  "category": "Epic",
+  "author": "Scorion Factory",
+  "engine": "FM",
+  "engineIndex": 2,
+  "tags": [
+    "bells",
+    "triumph",
+    "epic",
+    "cinematic"
+  ],
+  "genres": [
+    "epic",
+    "cinematic"
+  ],
+  "parameters": {
+    "masterGain": 0.72,
+    "filterCutoff": 5200,
+    "filterResonance": 0.25,
+    "ampAttack": 0.002,
+    "ampDecay": 1.0,
+    "ampSustain": 0.05,
+    "ampRelease": 2.0,
+    "filterEnvAmount": 0.35,
+    "pulseWidth": 0.5,
+    "unisonDetune": 0.18,
+    "unisonCount": 1,
+    "wtPosition": 0.3,
+    "fmRatio": 3.5,
+    "fmIndex": 4.5,
+    "grainPosition": 0.3,
+    "grainSize": 0.1,
+    "grainDensity": 0.45,
+    "reverbMix": 0.65,
+    "delayMix": 0.12,
+    "macro1": 0.5,
+    "lfo1Rate": 0.4,
+    "lfo1ToCutoff": 0.12,
+    "engine": 2.0
+  },
+  "mood": "cinematic",
+  "energy": 0.8,
+  "brightness": 0.433,
+  "warmth": 0.902,
+  "artworkSeed": 326858935
+}

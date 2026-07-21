@@ -1,0 +1,50 @@
+{
+  "schema": 1,
+  "name": "Witch House Keys",
+  "category": "Dark Synths",
+  "author": "Scorion Factory",
+  "engine": "Wavetable",
+  "engineIndex": 1,
+  "tags": [
+    "dark",
+    "keys",
+    "witch"
+  ],
+  "genres": [
+    "electronic",
+    "hiphop"
+  ],
+  "parameters": {
+    "masterGain": 0.72,
+    "filterCutoff": 1400,
+    "filterResonance": 0.35,
+    "ampAttack": 0.02,
+    "ampDecay": 0.3,
+    "ampSustain": 0.7,
+    "ampRelease": 0.9,
+    "filterEnvAmount": 0.35,
+    "pulseWidth": 0.45,
+    "unisonDetune": 0.18,
+    "unisonCount": 1,
+    "wtPosition": 0.4,
+    "fmRatio": 2.0,
+    "fmIndex": 1.6,
+    "grainPosition": 0.3,
+    "grainSize": 0.12,
+    "grainDensity": 0.45,
+    "reverbMix": 0.45,
+    "delayMix": 0.35,
+    "macro1": 0.5,
+    "macro2": 0.45,
+    "macro3": 0.5,
+    "macro4": 0.55,
+    "lfo1Rate": 0.35,
+    "lfo1ToCutoff": 0.3,
+    "engine": 1.0
+  },
+  "mood": "gothic",
+  "energy": 0.65,
+  "brightness": 0.064,
+  "warmth": 1.0,
+  "artworkSeed": 4267714307
+}

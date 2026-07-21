@@ -1,0 +1,46 @@
+{
+  "schema": 1,
+  "name": "Pop Sidechain Bass",
+  "category": "Basses",
+  "author": "Scorion Factory",
+  "engine": "Virtual Analog",
+  "engineIndex": 0,
+  "tags": [
+    "bass",
+    "punch",
+    "pop"
+  ],
+  "genres": [
+    "pop"
+  ],
+  "parameters": {
+    "masterGain": 0.72,
+    "filterCutoff": 550,
+    "filterResonance": 0.35,
+    "ampAttack": 0.002,
+    "ampDecay": 0.2,
+    "ampSustain": 0.45,
+    "ampRelease": 0.45,
+    "filterEnvAmount": 0.45,
+    "pulseWidth": 0.5,
+    "unisonDetune": 0.18,
+    "unisonCount": 1,
+    "wtPosition": 0.3,
+    "fmRatio": 2.0,
+    "fmIndex": 1.6,
+    "grainPosition": 0.3,
+    "grainSize": 0.1,
+    "grainDensity": 0.45,
+    "reverbMix": 0.08,
+    "delayMix": 0.12,
+    "macro1": 0.5,
+    "lfo1Rate": 0.4,
+    "lfo1ToCutoff": 0.12,
+    "engine": 0.0
+  },
+  "mood": "heavy",
+  "energy": 0.7,
+  "brightness": 0.05,
+  "warmth": 0.99,
+  "artworkSeed": 989732663
+}

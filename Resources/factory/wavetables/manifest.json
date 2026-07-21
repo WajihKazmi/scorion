@@ -1,0 +1,67 @@
+{
+  "schema": 1,
+  "frameSize": 2048,
+  "numFrames": 256,
+  "tables": [
+    {
+      "id": "analog_warm",
+      "file": "analog_warm.wtbin",
+      "wav": "analog_warm.wav"
+    },
+    {
+      "id": "choir_ah",
+      "file": "choir_ah.wtbin",
+      "wav": "choir_ah.wav"
+    },
+    {
+      "id": "digital_harsh",
+      "file": "digital_harsh.wtbin",
+      "wav": "digital_harsh.wav"
+    },
+    {
+      "id": "formant_vox",
+      "file": "formant_vox.wtbin",
+      "wav": "formant_vox.wav"
+    },
+    {
+      "id": "glass_pad",
+      "file": "glass_pad.wtbin",
+      "wav": "glass_pad.wav"
+    },
+    {
+      "id": "harmonic_evolve",
+      "file": "harmonic_evolve.wtbin",
+      "wav": "harmonic_evolve.wav"
+    },
+    {
+      "id": "metallic",
+      "file": "metallic.wtbin",
+      "wav": "metallic.wav"
+    },
+    {
+      "id": "noise_bitcrush",
+      "file": "noise_bitcrush.wtbin",
+      "wav": "noise_bitcrush.wav"
+    },
+    {
+      "id": "ooh_vox",
+      "file": "ooh_vox.wtbin",
+      "wav": "ooh_vox.wav"
+    },
+    {
+      "id": "square_morph",
+      "file": "square_morph.wtbin",
+      "wav": "square_morph.wav"
+    },
+    {
+      "id": "talk_box",
+      "file": "talk_box.wtbin",
+      "wav": "talk_box.wav"
+    },
+    {
+      "id": "vocal_pad",
+      "file": "vocal_pad.wtbin",
+      "wav": "vocal_pad.wav"
+    }
+  ]
+}

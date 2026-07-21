@@ -1,0 +1,50 @@
+{
+  "schema": 1,
+  "name": "Ritual Stab",
+  "category": "Dark Synths",
+  "author": "Scorion Factory",
+  "engine": "FM",
+  "engineIndex": 2,
+  "tags": [
+    "dark",
+    "stab",
+    "hit"
+  ],
+  "genres": [
+    "trap",
+    "hiphop"
+  ],
+  "parameters": {
+    "masterGain": 0.72,
+    "filterCutoff": 2800,
+    "filterResonance": 0.35,
+    "ampAttack": 0.001,
+    "ampDecay": 0.22,
+    "ampSustain": 0.15,
+    "ampRelease": 0.25,
+    "filterEnvAmount": 0.7,
+    "pulseWidth": 0.45,
+    "unisonDetune": 0.18,
+    "unisonCount": 1,
+    "wtPosition": 0.35,
+    "fmRatio": 1.5,
+    "fmIndex": 3.8,
+    "grainPosition": 0.3,
+    "grainSize": 0.12,
+    "grainDensity": 0.45,
+    "reverbMix": 0.25,
+    "delayMix": 0.15,
+    "macro1": 0.5,
+    "macro2": 0.45,
+    "macro3": 0.5,
+    "macro4": 0.55,
+    "lfo1Rate": 0.4,
+    "lfo1ToCutoff": 0.2,
+    "engine": 2.0
+  },
+  "mood": "gothic",
+  "energy": 0.65,
+  "brightness": 0.128,
+  "warmth": 1.0,
+  "artworkSeed": 3796131313
+}
