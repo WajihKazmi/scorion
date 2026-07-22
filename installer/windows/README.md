@@ -9,3 +9,4 @@ cmake --build build --config Release --target Scorion_VST3
 ```
 
 Optional: compile `ScorionSetup.iss` with Inno Setup if you need a GUI wrapper around the VST3 folder.
+CI copies the result to `releases/Scorion-Setup-Windows.exe` (tracked in git for downloads).

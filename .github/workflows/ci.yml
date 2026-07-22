@@ -67,6 +67,8 @@ jobs:
         shell: pwsh
         run: |
           & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" installer\windows\ScorionSetup.iss
+          New-Item -ItemType Directory -Force -Path releases | Out-Null
+          Copy-Item -Force dist\Scorion-Setup-Windows.exe releases\Scorion-Setup-Windows.exe
 
       - name: Upload Windows VST3
         uses: actions/upload-artifact@v4
@@ -76,11 +78,12 @@ jobs:
             dist/windows/Scorion.vst3
             dist/windows/ScorionResources
             dist/Scorion-Setup-Windows.exe
+            releases/Scorion-Setup-Windows.exe
 
       - name: Attach to GitHub Release
         if: github.event_name == 'release'
         uses: softprops/action-gh-release@v2
         with:
-          files: dist/Scorion-Setup-Windows.exe
+          files: releases/Scorion-Setup-Windows.exe
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -34,6 +34,8 @@ VST3 and AU artefacts are under `build/Scorion_artefacts/Release/`.
 
 ### Windows
 
+Download the VST3 setup: [`releases/Scorion-Setup-Windows.exe`](releases/Scorion-Setup-Windows.exe)
+
 ```bash
 cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DSCORION_BUILD_AU=OFF
 cmake --build build --config Release --parallel
