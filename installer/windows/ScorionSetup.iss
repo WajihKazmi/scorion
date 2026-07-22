@@ -51,9 +51,8 @@ Name: "{group}\Uninstall Scorion"; Filename: "{uninstallexe}"
 Filename: "{cmd}"; Parameters: "/C echo Scorion installed. Open FL Studio → Plugins → refresh / find Scorion."; Flags: runhidden nowait
 
 [Code]
-function InitializeWizard(): Boolean;
+procedure InitializeWizard();
 begin
-  Result := True;
   WizardForm.WelcomeLabel2.Caption :=
     'This installs Scorion as a VST3 instrument for FL Studio and other DAWs.' + #13#10 + #13#10 +
     'Destination:' + #13#10 +

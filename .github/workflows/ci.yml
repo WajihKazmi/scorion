@@ -66,7 +66,12 @@ jobs:
       - name: Package Windows VST3 bundle
         shell: pwsh
         run: |
+          $ErrorActionPreference = "Stop"
           & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" installer\windows\ScorionSetup.iss
+          if ($LASTEXITCODE -ne 0) { throw "Inno Setup failed with exit code $LASTEXITCODE" }
+          if (-not (Test-Path -LiteralPath "dist\Scorion-Setup-Windows.exe")) {
+            throw "Setup exe was not produced at dist\Scorion-Setup-Windows.exe"
+          }
           New-Item -ItemType Directory -Force -Path releases | Out-Null
           Copy-Item -Force dist\Scorion-Setup-Windows.exe releases\Scorion-Setup-Windows.exe
 
