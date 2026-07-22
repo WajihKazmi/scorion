@@ -10,10 +10,12 @@ class PortalStage : public juce::Component,
                     private juce::Timer
 {
 public:
-    PortalStage() { startTimerHz (30); }
+    PortalStage() { startTimerHz (12); }
 
     void setLookAndFeelRef (ScorionLookAndFeel* laf) { laf_ = laf; }
     void setEnergy (float e) { energy_ = juce::jlimit (0.0f, 1.0f, e); }
+    void setReducedMotion (bool on) { reduced_ = on; }
+    void setTimerHz (int hz) { startTimerHz (juce::jlimit (6, 40, hz)); }
     void setSnapshot (const std::array<float, 256>& data)
     {
         for (int i = 0; i < kSpokes; ++i)
@@ -58,6 +60,7 @@ public:
         }
 
         // Live particles reacting to audio
+        if (! reduced_)
         for (int i = 0; i < kParticles; ++i)
         {
             const float life = particles_[(size_t) i].life;
@@ -120,30 +123,33 @@ private:
 
     void timerCallback() override
     {
-        phase_ += 0.028f + energy_ * 0.045f;
-        // Spawn / update particles
-        if (energy_ > 0.08f && (int) (phase_ * 10.0f) % 3 == 0)
+        phase_ += reduced_ ? 0.018f : (0.028f + energy_ * 0.045f);
+        if (! reduced_)
         {
-            for (auto& p : particles_)
+            // Spawn / update particles
+            if (energy_ > 0.08f && (int) (phase_ * 10.0f) % 3 == 0)
             {
-                if (p.life <= 0.0f)
+                for (auto& p : particles_)
                 {
-                    const float ang = phase_ * 1.7f + (float) (&p - particles_.data()) * 0.4f;
-                    p.x = std::cos (ang) * 0.15f;
-                    p.y = std::sin (ang) * 0.15f;
-                    p.vx = std::cos (ang) * (0.01f + energy_ * 0.02f);
-                    p.vy = std::sin (ang) * (0.01f + energy_ * 0.02f);
-                    p.life = 0.6f + energy_ * 0.4f;
-                    break;
+                    if (p.life <= 0.0f)
+                    {
+                        const float ang = phase_ * 1.7f + (float) (&p - particles_.data()) * 0.4f;
+                        p.x = std::cos (ang) * 0.15f;
+                        p.y = std::sin (ang) * 0.15f;
+                        p.vx = std::cos (ang) * (0.01f + energy_ * 0.02f);
+                        p.vy = std::sin (ang) * (0.01f + energy_ * 0.02f);
+                        p.life = 0.6f + energy_ * 0.4f;
+                        break;
+                    }
                 }
             }
-        }
-        for (auto& p : particles_)
-        {
-            if (p.life <= 0.0f) continue;
-            p.x += p.vx;
-            p.y += p.vy;
-            p.life -= 0.02f;
+            for (auto& p : particles_)
+            {
+                if (p.life <= 0.0f) continue;
+                p.x += p.vx;
+                p.y += p.vy;
+                p.life -= 0.02f;
+            }
         }
         repaint();
     }
@@ -155,4 +161,5 @@ private:
     std::array<Particle, kParticles> particles_ {};
     float energy_ = 0.0f;
     float phase_ = 0.0f;
+    bool reduced_ = true;
 };

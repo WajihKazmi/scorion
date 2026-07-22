@@ -16,11 +16,11 @@ public:
         header.setToggleState (true, juce::dontSendNotification);
         header.onClick = [this] {
             targetOpen_ = header.getToggleState() ? 1.0f : 0.0f;
-            startTimerHz (60);
+            startTimerHz (24);
         };
         addAndMakeVisible (header);
         addAndMakeVisible (body);
-        startTimerHz (60);
+        // Idle: no animation timer — only run while collapsing/expanding
     }
 
     void setLookAndFeelRef (ScorionLookAndFeel* laf)
@@ -81,6 +81,11 @@ private:
             openAmount_ += (targetOpen_ > openAmount_ ? speed : -speed);
 
         openAmount_ = juce::jlimit (0.0f, 1.0f, openAmount_);
+        if (std::abs (openAmount_ - targetOpen_) < 0.001f)
+        {
+            openAmount_ = targetOpen_;
+            stopTimer();
+        }
         if (onOpenChanged) onOpenChanged();
         resized();
         repaint();

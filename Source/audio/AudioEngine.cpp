@@ -4,6 +4,16 @@
 
 AudioEngine::AudioEngine() = default;
 
+void AudioEngine::setPerformanceMode (PerformanceMode mode)
+{
+    perfMode_ = mode;
+    voiceManager.setPerformanceMode (mode);
+    fxRack.setPerformanceMode (mode);
+    // Coarser probe on weak machines = less UI work
+    const int targetHz = (mode == PerformanceMode::Eco) ? 4000 : 8000;
+    waveformProbe.setDecimation (juce::jmax (1, (int) (sampleRate / (double) targetHz)));
+}
+
 void AudioEngine::prepare (const juce::dsp::ProcessSpec& spec)
 {
     sampleRate = spec.sampleRate;
@@ -11,9 +21,9 @@ void AudioEngine::prepare (const juce::dsp::ProcessSpec& spec)
     modMatrix.prepare (spec.sampleRate);
     voiceManager.prepare (spec);
     fxRack.prepare (spec);
+    setPerformanceMode (perfMode_);
     mpeHandler.reset();
     waveformProbe.prepare();
-    waveformProbe.setDecimation (juce::jmax (1, (int) (spec.sampleRate / 8000.0)));
     voiceBuffer.setSize ((int) spec.numChannels, (int) spec.maximumBlockSize, false, false, true);
     voiceManager.setEngine (SynthEngineType::VirtualAnalog, assetLoader);
 }

@@ -51,8 +51,15 @@ public:
         hint.setJustificationType (juce::Justification::centredLeft);
         addAndMakeVisible (hint);
 
-        startTimerHz (24);
+        startTimerHz (8);
         rebuild();
+    }
+
+    void setLowPower (bool on)
+    {
+        lowPower_ = on;
+        if (on) startTimerHz (8);
+        else startTimerHz (20);
     }
 
     void setLookAndFeelRef (ScorionLookAndFeel* laf)
@@ -381,6 +388,14 @@ private:
 
     void timerCallback() override
     {
+        if (lowPower_)
+        {
+            // Still advance phase slowly for cover art, repaint less often
+            phase_ += 0.03f;
+            if ((++lowTick_ % 3) == 0 && ! grid.cards.empty())
+                grid.repaint();
+            return;
+        }
         phase_ += 0.05f + energy_ * 0.04f;
         if (! grid.cards.empty())
             grid.repaint();
@@ -402,4 +417,6 @@ private:
     int selected_ = -1;
     float energy_ = 0.0f;
     float phase_ = 0.0f;
+    bool lowPower_ = true;
+    int lowTick_ = 0;
 };

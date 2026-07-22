@@ -16,6 +16,7 @@
 #include "ui/InspectorSection.h"
 #include "ui/MacroCard.h"
 #include "ui/SettingsPanel.h"
+#include "audio/PerformanceMode.h"
 #include <memory>
 
 class ScorionAudioProcessor;
@@ -48,6 +49,7 @@ private:
     void applyNamedTheme (ScorionLookAndFeel::NamedTheme t);
     void persistUiSettings();
     void restoreUiSettings();
+    void applyPerformanceMode (PerformanceMode mode);
 
     ScorionAudioProcessor& proc;
     ScorionLookAndFeel lookAndFeel;
@@ -110,6 +112,7 @@ private:
     int mainTab_ = 0;
     bool auditionOnClick_ = true;
     bool flFriendly_ = true;
+    PerformanceMode perfMode_ = PerformanceMode::Eco;
     float energySmooth_ = 0.0f;
     float backdropPhase_ = 0.0f;
     int idleFrames_ = 0;

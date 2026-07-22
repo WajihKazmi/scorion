@@ -144,15 +144,17 @@ bool VoiceManager::loadWavetableFromFile (const juce::File& wtbinFile)
 
 int VoiceManager::findFreeOrSteal()
 {
-    for (int i = 0; i < kMaxVoices; ++i)
+    const int limit = juce::jmin (kMaxVoices, maxVoicesForMode (perfMode_));
+    for (int i = 0; i < limit; ++i)
         if (! voices[(size_t) i].active)
             return i;
 
     int best = 0;
     float bestScore = 1.0e9f;
-    for (int i = 0; i < kMaxVoices; ++i)
+    for (int i = 0; i < limit; ++i)
     {
-        const float score = voices[(size_t) i].ampEnv.getLevel() + (float) (ageCounter - voices[(size_t) i].age) * 0.00001f;
+        const float score = voices[(size_t) i].ampEnv.getLevel()
+                          + (float) (ageCounter - voices[(size_t) i].age) * 0.00001f;
         if (score < bestScore)
         {
             bestScore = score;
@@ -280,21 +282,41 @@ void VoiceManager::renderVoice (Voice& voice, float* left, float* right, int num
             currentEngine->render (voiceIndex, &l, &r, 1, mp);
 
         const float cut = juce::jlimit (40.0f, 18000.0f, mp.cutoff);
-        // Parallel blend: TPT SVF clarity + Moog ladder body (Serum-ish thickness)
-        voice.filter.setCutoff (cut);
-        voice.filter.setResonance (mp.resonance * 0.85f);
-        voice.ladder.setCutoff (cut);
-        voice.ladder.setResonance (mp.resonance);
-        const float lA = voice.filter.process (l);
-        const float rA = voice.filter.process (r);
-        const float lB = voice.ladder.process (l);
-        const float rB = voice.ladder.process (r);
-        l = 0.45f * lA + 0.55f * lB;
-        r = 0.45f * rA + 0.55f * rB;
+        if (perfMode_ == PerformanceMode::Quality)
+        {
+            // Dual filter path (heavier)
+            voice.filter.setCutoff (cut);
+            voice.filter.setResonance (mp.resonance * 0.85f);
+            voice.ladder.setCutoff (cut);
+            voice.ladder.setResonance (mp.resonance);
+            const float lA = voice.filter.process (l);
+            const float rA = voice.filter.process (r);
+            const float lB = voice.ladder.process (l);
+            const float rB = voice.ladder.process (r);
+            l = 0.45f * lA + 0.55f * lB;
+            r = 0.45f * rA + 0.55f * rB;
+        }
+        else
+        {
+            // Single ladder — big CPU win on weak machines
+            voice.ladder.setCutoff (cut);
+            voice.ladder.setResonance (mp.resonance);
+            l = voice.ladder.process (l);
+            r = voice.ladder.process (r);
+        }
 
         const float env = voice.ampEnv.next() * mp.ampMod;
-        l = std::tanh (l * env * 1.1f);
-        r = std::tanh (r * env * 1.1f);
+        // Soft clip without tanh in Eco (cheaper clamp)
+        if (perfMode_ == PerformanceMode::Eco)
+        {
+            l = juce::jlimit (-1.0f, 1.0f, l * env);
+            r = juce::jlimit (-1.0f, 1.0f, r * env);
+        }
+        else
+        {
+            l = std::tanh (l * env * 1.1f);
+            r = std::tanh (r * env * 1.1f);
+        }
 
         left[i] += l;
         right[i] += r;
@@ -310,7 +332,7 @@ void VoiceManager::process (juce::AudioBuffer<float>& buffer, int numSamples,
     auto* left = buffer.getWritePointer (0);
     auto* right = buffer.getNumChannels() > 1 ? buffer.getWritePointer (1) : left;
 
-    for (int i = 0; i < kMaxVoices; ++i)
+    for (int i = 0; i < juce::jmin (kMaxVoices, maxVoicesForMode (perfMode_)); ++i)
     {
         if (voices[(size_t) i].active)
             renderVoice (voices[(size_t) i], left, right, numSamples, mod, baseParams);

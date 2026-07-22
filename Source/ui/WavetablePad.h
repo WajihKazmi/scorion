@@ -19,6 +19,11 @@ public:
     void setLookAndFeelRef (ScorionLookAndFeel* laf) { laf_ = laf; }
     void setPosition (float pos01) { position_ = juce::jlimit (0.0f, 1.0f, pos01); }
     void setEnergy (float e) { energy_ = juce::jlimit (0.0f, 1.0f, e); }
+    void setTimerHz (int hz)
+    {
+        reducedLayers_ = hz <= 16;
+        startTimerHz (juce::jlimit (6, 30, hz));
+    }
 
     void paint (juce::Graphics& g) override
     {
@@ -28,7 +33,7 @@ public:
 
         auto plot = b.reduced (14.0f, 16.0f);
         const auto accent = laf_ != nullptr ? laf_->accent() : juce::Colours::cyan;
-        const int layers = 7;
+        const int layers = reducedLayers_ ? 4 : 7;
         const float frameF = position_ * (float) (numFrames_ - 1);
         const int f0 = (int) frameF;
         const int f1 = juce::jmin (f0 + 1, numFrames_ - 1);
@@ -137,4 +142,5 @@ private:
     float position_ = 0.25f;
     float energy_ = 0.5f;
     float phase_ = 0.0f;
+    bool reducedLayers_ = true;
 };

@@ -9,6 +9,7 @@ class VoiceMeter : public juce::Component
 public:
     void setLookAndFeelRef (ScorionLookAndFeel* laf) { laf_ = laf; }
     void setVoiceCount (int n) { voices_ = juce::jlimit (0, maxVoices_, n); repaint(); }
+    void setMaxVoices (int n) { maxVoices_ = juce::jlimit (1, 16, n); voices_ = juce::jmin (voices_, maxVoices_); repaint(); }
     void setEnergy (float e) { energy_ = juce::jlimit (0.0f, 1.0f, e); repaint(); }
 
     void paint (juce::Graphics& g) override

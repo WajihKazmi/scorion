@@ -4,12 +4,14 @@
 #include <array>
 #include <vector>
 #include "dsp/Oversampler2x.h"
+#include "audio/PerformanceMode.h"
 
 class FxRack
 {
 public:
     void prepare (const juce::dsp::ProcessSpec& spec);
     void reset();
+    void setPerformanceMode (PerformanceMode mode) noexcept { perfMode_ = mode; }
     void process (juce::AudioBuffer<float>& buffer, float reverbMix, float delayMix, float masterGain);
 
 private:
@@ -20,6 +22,7 @@ private:
     void processReverb (juce::AudioBuffer<float>& buffer, float mix);
     void processLimiter (juce::AudioBuffer<float>& buffer);
 
+    PerformanceMode perfMode_ = PerformanceMode::Eco;
     double sampleRate_ = 44100.0;
     int maxBlock_ = 512;
 
@@ -29,7 +32,7 @@ private:
     float delayFeedback_ = 0.42f;
     float delayHpL_ = 0, delayHpR_ = 0;
 
-    // 8-line FDN reverb
+    // 8-line FDN capacity; Eco only walks first 4
     static constexpr int kFdn = 8;
     std::array<std::vector<float>, kFdn> fdn_;
     std::array<int, kFdn> fdnIdx_ {};
@@ -38,7 +41,6 @@ private:
     std::vector<float> preL_, preR_;
     int preWrite_ = 0;
 
-    // Chorus
     std::vector<float> chorusL_, chorusR_;
     int chorusWrite_ = 0;
     float chorusPhase_ = 0.0f;

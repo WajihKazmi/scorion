@@ -460,6 +460,10 @@ ScorionAudioProcessorEditor::ScorionAudioProcessorEditor (ScorionAudioProcessor&
             pianoBar->getKeyboard().setMidiChannel (ch <= 0 ? 1 : ch);
         persistUiSettings();
     };
+    settingsPanel.onPerformanceChanged = [this] (PerformanceMode m) {
+        applyPerformanceMode (m);
+        persistUiSettings();
+    };
     addChildComponent (settingsPanel);
     settingsPanel.setVisible (false);
 
@@ -467,8 +471,9 @@ ScorionAudioProcessorEditor::ScorionAudioProcessorEditor (ScorionAudioProcessor&
     setResizable (true, true);
     setResizeLimits (1280, 840, 2800, 1700);
     restoreUiSettings();
+    applyPerformanceMode (perfMode_);
     refreshPresetLabel();
-    startTimerHz (30);
+    startTimerHz (uiHzForMode (perfMode_));
     setMainTab (0);
 
     juce::Timer::callAfterDelay (100, [safe = juce::Component::SafePointer<ScorionAudioProcessorEditor> (this)] {
@@ -521,6 +526,23 @@ void ScorionAudioProcessorEditor::applyNamedTheme (ScorionLookAndFeel::NamedThem
     persistUiSettings();
 }
 
+void ScorionAudioProcessorEditor::applyPerformanceMode (PerformanceMode mode)
+{
+    perfMode_ = mode;
+    proc.getEngine().setPerformanceMode (mode);
+    settingsPanel.setPerformanceMode (mode);
+    voiceMeter.setMaxVoices (maxVoicesForMode (mode));
+
+    const int hz = uiHzForMode (mode);
+    startTimerHz (hz);
+    portalStage.setReducedMotion (mode == PerformanceMode::Eco);
+    portalStage.setTimerHz (hz);
+    wavetablePad.setTimerHz (juce::jmax (8, hz - 4));
+    lfo1Panel.setTimerHz (juce::jmax (8, hz));
+    if (soundLibrary) soundLibrary->setLowPower (mode == PerformanceMode::Eco);
+    spectrogram.setLowPower (mode != PerformanceMode::Quality);
+}
+
 void ScorionAudioProcessorEditor::persistUiSettings()
 {
     auto& s = proc.getUiSettings();
@@ -529,6 +551,7 @@ void ScorionAudioProcessorEditor::persistUiSettings()
     s.setProperty ("knobScales", lookAndFeel.getShowKnobScales(), nullptr);
     s.setProperty ("audition", auditionOnClick_, nullptr);
     s.setProperty ("flFriendly", flFriendly_, nullptr);
+    s.setProperty ("perfMode", (int) perfMode_, nullptr);
     if (pianoBar != nullptr)
         s.setProperty ("midiChannel", pianoBar->getKeyboard().getMidiChannel(), nullptr);
 }
@@ -549,10 +572,13 @@ void ScorionAudioProcessorEditor::restoreUiSettings()
         auditionOnClick_ = (bool) s.getProperty ("audition");
     if (s.hasProperty ("flFriendly"))
         flFriendly_ = (bool) s.getProperty ("flFriendly");
+    if (s.hasProperty ("perfMode"))
+        perfMode_ = (PerformanceMode) juce::jlimit (0, 2, (int) s.getProperty ("perfMode"));
     if (s.hasProperty ("midiChannel") && pianoBar != nullptr)
         pianoBar->getKeyboard().setMidiChannel ((int) s.getProperty ("midiChannel"));
     settingsPanel.setAudition (auditionOnClick_);
     settingsPanel.setFlFriendly (flFriendly_);
+    settingsPanel.setPerformanceMode (perfMode_);
     applyTheme();
 }
 

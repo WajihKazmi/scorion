@@ -10,6 +10,7 @@
 #include "midi/MpeHandler.h"
 #include "ui/WaveformProbe.h"
 #include "assets/AssetLoader.h"
+#include "audio/PerformanceMode.h"
 
 class AudioEngine
 {
@@ -22,6 +23,7 @@ public:
                   juce::AudioProcessorValueTreeState& apvts);
 
     void panic();
+    void setPerformanceMode (PerformanceMode mode);
 
     VoiceManager& voices() noexcept { return voiceManager; }
     ModulationMatrix& modulation() noexcept { return modMatrix; }
@@ -30,8 +32,10 @@ public:
     WaveformProbe& probe() noexcept { return waveformProbe; }
     AssetLoader& assets() noexcept { return assetLoader; }
     MpeHandler& mpe() noexcept { return mpeHandler; }
+    PerformanceMode getPerformanceMode() const noexcept { return perfMode_; }
 
 private:
+    PerformanceMode perfMode_ = PerformanceMode::Eco;
     ParamBridge paramBridge;
     ModulationMatrix modMatrix;
     VoiceManager voiceManager;

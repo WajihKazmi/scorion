@@ -12,7 +12,7 @@ void FxRack::prepare (const juce::dsp::ProcessSpec& spec)
     sampleRate_ = spec.sampleRate;
     maxBlock_ = (int) spec.maximumBlockSize;
 
-    const int delaySize = (int) (sampleRate_ * 2.5) + maxBlock_ + 8;
+    const int delaySize = (int) (sampleRate_ * (perfMode_ == PerformanceMode::Eco ? 1.2 : 2.0)) + maxBlock_ + 8;
     delayL_.assign ((size_t) delaySize, 0.0f);
     delayR_.assign ((size_t) delaySize, 0.0f);
     delayWrite_ = 0;
@@ -119,12 +119,27 @@ void FxRack::processChorus (juce::AudioBuffer<float>& buffer)
 void FxRack::processSaturator (juce::AudioBuffer<float>& buffer)
 {
     const int n = buffer.getNumSamples();
+    if (perfMode_ != PerformanceMode::Quality)
+    {
+        // 1x soft clip — avoids 2x upsample CPU on weak CPUs
+        for (int ch = 0; ch < buffer.getNumChannels(); ++ch)
+        {
+            auto* data = buffer.getWritePointer (ch);
+            for (int i = 0; i < n; ++i)
+            {
+                float x = data[i] * 1.25f;
+                x = juce::jlimit (-1.2f, 1.2f, x);
+                data[i] = x - 0.12f * x * x * x;
+            }
+        }
+        return;
+    }
+
     auto processChan = [&] (int ch, Oversampler2x& os) {
         auto* data = buffer.getWritePointer (ch);
         float* up = os.upsample (data, n);
         for (int i = 0; i < n * 2; ++i)
         {
-            // Multi-stage soft clip (tape-ish)
             float x = up[i] * 1.35f;
             x = std::tanh (x);
             x = x - 0.15f * x * x * x;
@@ -172,6 +187,8 @@ void FxRack::processReverb (juce::AudioBuffer<float>& buffer, float mix)
     const float feedback = 0.88f;
     const float damp = 0.28f;
     const int preN = (int) preL_.size();
+    const int lines = (perfMode_ == PerformanceMode::Eco) ? 4 : kFdn;
+    const float meanScale = 1.0f / (float) lines;
 
     for (int i = 0; i < buffer.getNumSamples(); ++i)
     {
@@ -185,10 +202,9 @@ void FxRack::processReverb (juce::AudioBuffer<float>& buffer, float mix)
         const float pdR = preR_[(size_t) preRead];
         preWrite_ = (preWrite_ + 1) % preN;
 
-        // Householder-ish FDN mix
         std::array<float, kFdn> taps {};
         float sum = 0.0f;
-        for (int c = 0; c < kFdn; ++c)
+        for (int c = 0; c < lines; ++c)
         {
             auto& buf = fdn_[(size_t) c];
             int& idx = fdnIdx_[(size_t) c];
@@ -200,25 +216,24 @@ void FxRack::processReverb (juce::AudioBuffer<float>& buffer, float mix)
         }
 
         const float input = 0.5f * (pdL + pdR);
-        for (int c = 0; c < kFdn; ++c)
+        for (int c = 0; c < lines; ++c)
         {
             auto& buf = fdn_[(size_t) c];
             int& idx = fdnIdx_[(size_t) c];
-            // diffuse feedback: self - mean
-            const float fb = (taps[(size_t) c] - 0.125f * sum) * feedback;
+            const float fb = (taps[(size_t) c] - meanScale * sum) * feedback;
             const float inj = (c & 1) ? pdR : pdL;
             buf[(size_t) idx] = inj * 0.35f + input * 0.15f + fb;
             idx = (idx + 1) % (int) buf.size();
         }
 
         float wetL = 0.0f, wetR = 0.0f;
-        for (int c = 0; c < kFdn; ++c)
+        for (int c = 0; c < lines; ++c)
         {
             if (c & 1) wetR += taps[(size_t) c];
             else wetL += taps[(size_t) c];
         }
-        wetL *= 0.22f;
-        wetR *= 0.22f;
+        wetL *= 0.22f * (8.0f / (float) lines);
+        wetR *= 0.22f * (8.0f / (float) lines);
 
         const float dry = 1.0f - mix * 0.85f;
         buffer.setSample (0, i, inL * dry + wetL * mix);
@@ -246,8 +261,12 @@ void FxRack::processLimiter (juce::AudioBuffer<float>& buffer)
 
 void FxRack::process (juce::AudioBuffer<float>& buffer, float reverbMix, float delayMix, float masterGain)
 {
-    processEq (buffer);
-    processChorus (buffer);
+    if (perfMode_ != PerformanceMode::Eco)
+        processEq (buffer);
+
+    if (perfMode_ == PerformanceMode::Quality)
+        processChorus (buffer);
+
     processSaturator (buffer);
     processDelay (buffer, delayMix);
     processReverb (buffer, reverbMix);

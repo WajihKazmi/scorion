@@ -6,6 +6,7 @@
 #include "dsp/AdsrEnvelope.h"
 #include "dsp/ZdfFilter.h"
 #include "dsp/Oversampler2x.h"
+#include "audio/PerformanceMode.h"
 
 class ModulationMatrix;
 class AssetLoader;
@@ -35,6 +36,8 @@ public:
 
     void prepare (const juce::dsp::ProcessSpec& spec);
     void reset();
+    void setPerformanceMode (PerformanceMode mode) noexcept { perfMode_ = mode; }
+    PerformanceMode getPerformanceMode() const noexcept { return perfMode_; }
     void setEngine (SynthEngineType type, AssetLoader& assets);
     /** Hot-swap mono WAV into Sampler/Granular engines (sound-design hub). */
     bool loadSampleFromFile (const juce::File& wavFile, int rootNote = 60);
@@ -67,6 +70,7 @@ private:
     std::array<Voice, kMaxVoices> voices {};
     std::unique_ptr<ISynthEngine> currentEngine;
     SynthEngineType engineType = SynthEngineType::VirtualAnalog;
+    PerformanceMode perfMode_ = PerformanceMode::Eco;
     double sampleRate = 44100.0;
     bool sustainPedal = false;
     uint32_t ageCounter = 0;

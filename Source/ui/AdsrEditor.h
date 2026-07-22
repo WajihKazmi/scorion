@@ -10,7 +10,7 @@ class AdsrEditor : public juce::Component,
                    private juce::Timer
 {
 public:
-    AdsrEditor() { startTimerHz (30); }
+    AdsrEditor() { startTimerHz (12); }
 
     void setLookAndFeelRef (ScorionLookAndFeel* laf) { laf_ = laf; }
     void setEnergy (float e) { energy_ = juce::jlimit (0.0f, 1.0f, e); }

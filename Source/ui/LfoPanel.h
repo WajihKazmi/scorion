@@ -84,6 +84,7 @@ public:
     void setLookAndFeelRef (ScorionLookAndFeel* laf) { laf_ = laf; }
     void setTitle (const juce::String& t) { title_ = t; repaint(); }
     void setPhase (float p) { phase_ = p; }
+    void setTimerHz (int hz) { startTimerHz (juce::jlimit (6, 30, hz)); }
 
     juce::ComboBox waveBox;
     juce::TextButton syncButton { "Sync" };

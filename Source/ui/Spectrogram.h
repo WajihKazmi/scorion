@@ -12,6 +12,7 @@ class Spectrogram : public juce::Component
 public:
     void setLookAndFeelRef (ScorionLookAndFeel* laf) { laf_ = laf; }
     void setEnergy (float e) { energy_ = juce::jlimit (0.0f, 1.0f, e); }
+    void setLowPower (bool on) { lowPower_ = on; maxCols_ = on ? 48 : 72; }
 
     void pushBands (const std::array<float, 64>& bands)
     {
@@ -33,14 +34,13 @@ public:
                 target[(size_t) i] = prev[(size_t) i] * 0.72f + target[(size_t) i] * 0.28f;
         }
 
-        // Spatial blur
         Column blur = target;
         for (int i = 1; i < kRows - 1; ++i)
             blur[(size_t) i] = 0.2f * target[(size_t) (i - 1)] + 0.6f * target[(size_t) i]
                              + 0.2f * target[(size_t) (i + 1)];
 
-        // Only append every other push — slower scroll, calmer motion
-        if ((++pushCount_ % 2) == 0)
+        const int stride = lowPower_ ? 4 : 2;
+        if ((++pushCount_ % stride) == 0)
         {
             history_.push_back (blur);
             while ((int) history_.size() > maxCols_)
@@ -93,7 +93,8 @@ private:
     using Column = std::array<float, kRows>;
     ScorionLookAndFeel* laf_ = nullptr;
     std::deque<Column> history_;
-    int maxCols_ = 72;
+    int maxCols_ = 48;
     int pushCount_ = 0;
     float energy_ = 0.0f;
+    bool lowPower_ = true;
 };

@@ -2,6 +2,7 @@
 
 #include <juce_gui_basics/juce_gui_basics.h>
 #include "ScorionLookAndFeel.h"
+#include "audio/PerformanceMode.h"
 #include <functional>
 
 /** Settings tab: themes, UI scale, library + FL Studio options. */
@@ -31,7 +32,7 @@ public:
             addAndMakeVisible (b);
         }
 
-        scaleLabel.setText ("UI SCALE (FL Studio / HiDPI)", juce::dontSendNotification);
+        scaleLabel.setText ("UI SCALE", juce::dontSendNotification);
         addAndMakeVisible (scaleLabel);
         scaleBox.addItemList ({ "85%", "100%", "110%", "125%", "150%" }, 1);
         scaleBox.setSelectedId (2, juce::dontSendNotification);
@@ -41,6 +42,17 @@ public:
             if (onUiScaleChanged) onUiScaleChanged (scales[i]);
         };
         addAndMakeVisible (scaleBox);
+
+        perfLabel.setText ("PERFORMANCE (CPU / RAM)", juce::dontSendNotification);
+        addAndMakeVisible (perfLabel);
+        perfBox.addItemList ({ "Eco (low CPU / RAM)", "Balanced", "Quality" }, 1);
+        perfBox.setSelectedId (1, juce::dontSendNotification); // Eco default
+        perfBox.setTooltip ("Eco targets older laptops (e.g. 6th-gen). Fewer voices, lighter FX & UI.");
+        perfBox.onChange = [this] {
+            const auto mode = (PerformanceMode) juce::jlimit (0, 2, perfBox.getSelectedItemIndex());
+            if (onPerformanceChanged) onPerformanceChanged (mode);
+        };
+        addAndMakeVisible (perfBox);
 
         knobScales.setButtonText ("Show knob scale numbers (0–10)");
         knobScales.setClickingTogglesState (true);
@@ -91,7 +103,7 @@ public:
         if (laf == nullptr) return;
         title.setFont (laf->brandFont (18.0f));
         title.setColour (juce::Label::textColourId, laf->textPrimary());
-        for (auto* lab : { &themeLabel, &scaleLabel, &midiChLabel })
+        for (auto* lab : { &themeLabel, &scaleLabel, &perfLabel, &midiChLabel })
         {
             lab->setFont (laf->titleFont (12.0f));
             lab->setColour (juce::Label::textColourId, laf->textPrimary());
@@ -118,6 +130,10 @@ public:
 
     void setAudition (bool on) { audition.setToggleState (on, juce::dontSendNotification); }
     void setFlFriendly (bool on) { flFriendly.setToggleState (on, juce::dontSendNotification); }
+    void setPerformanceMode (PerformanceMode m)
+    {
+        perfBox.setSelectedItemIndex ((int) m, juce::dontSendNotification);
+    }
 
     std::function<void (ScorionLookAndFeel::NamedTheme)> onThemeChanged;
     std::function<void (float)> onUiScaleChanged;
@@ -125,6 +141,7 @@ public:
     std::function<void (bool)> onAuditionChanged;
     std::function<void (bool)> onFlFriendlyChanged;
     std::function<void (int)> onMidiChannelChanged;
+    std::function<void (PerformanceMode)> onPerformanceChanged;
 
     void paint (juce::Graphics& g) override
     {
@@ -148,6 +165,10 @@ public:
         a.removeFromTop (4);
         scaleBox.setBounds (a.removeFromTop (32));
         a.removeFromTop (12);
+        perfLabel.setBounds (a.removeFromTop (18));
+        a.removeFromTop (4);
+        perfBox.setBounds (a.removeFromTop (32));
+        a.removeFromTop (12);
         knobScales.setBounds (a.removeFromTop (28));
         audition.setBounds (a.removeFromTop (28));
         flFriendly.setBounds (a.removeFromTop (28));
@@ -169,8 +190,8 @@ private:
     }
 
     ScorionLookAndFeel* laf_ = nullptr;
-    juce::Label title, themeLabel, scaleLabel, midiChLabel, tip;
+    juce::Label title, themeLabel, scaleLabel, perfLabel, midiChLabel, tip;
     juce::OwnedArray<juce::TextButton> themeButtons;
-    juce::ComboBox scaleBox, midiChannel;
+    juce::ComboBox scaleBox, midiChannel, perfBox;
     juce::ToggleButton knobScales, audition, flFriendly;
 };
